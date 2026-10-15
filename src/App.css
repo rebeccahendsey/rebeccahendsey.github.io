@@ -875,6 +875,192 @@ a.pill-light:hover {
   margin-top: 0.5rem;
 }
 
+/* Travel */
+.travel {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+.travel-intro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.travel-intro h2 {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.travel-intro h2 em {
+  font-weight: 400;
+  color: var(--sage);
+}
+
+.travel-stats {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.travel-stats dt {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.travel-stats dd {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage);
+}
+
+.travel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.travel-tabs button {
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.travel-tabs button:hover,
+.travel-tabs button.is-on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--cream);
+}
+
+.travel-tabs button:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
+}
+
+.map {
+  --map-pad: 1rem;
+  position: relative;
+  background: var(--cream);
+  border-radius: 14px;
+  padding: var(--map-pad);
+}
+
+.map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.land {
+  fill: var(--paper-2);
+  stroke: var(--cream);
+  stroke-width: 0.6;
+}
+
+.land.is-visited {
+  fill: var(--sage-light);
+}
+
+.land.is-visited:hover {
+  fill: var(--sage);
+}
+
+.dot {
+  fill: var(--ink);
+  stroke: var(--cream);
+  stroke-width: 1.2;
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.dot:hover,
+.dot:focus {
+  fill: var(--charcoal);
+  outline: none;
+}
+
+.dot-home {
+  fill: none;
+  stroke: #9b7fa6;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.map-tip {
+  position: absolute;
+  transform: translate(-50%, calc(-100% - 14px));
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.5rem 0.8rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  font-size: 0.85rem;
+  z-index: 2;
+}
+
+.map-tip strong {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.map-tip span {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--sage-light);
+}
+
+.travel-index {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+  margin-top: 2.5rem;
+}
+
+.travel-index h3 {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--sage);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.travel-index ul {
+  list-style: none;
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.travel-index b {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.02rem;
+}
+
 /* Contact */
 .contact {
   background: var(--charcoal);
@@ -1052,6 +1238,14 @@ a:focus-visible {
 
   .roadmap {
     grid-template-columns: 1fr;
+  }
+
+  .travel-index {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    --map-pad: 0.5rem;
   }
 
   .roadmap-col {

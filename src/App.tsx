@@ -1,4 +1,5 @@
 import './App.css'
+import Travel from './Travel'
 
 type Tag = 'added' | 'changed' | 'fixed' | 'breaking'
 
@@ -87,6 +88,7 @@ function App() {
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#timeline">Timeline</a>
+          <a href="#travel">Travel</a>
           <a href="#contact">Contact</a>
           <span aria-hidden="true">←</span>
         </nav>
@@ -349,6 +351,10 @@ function App() {
           {SKILLS.map((s) => <li key={s} className="pill">{s}</li>)}
         </ul>
       </section>
+
+      <div className="band" id="travel">Off the clock</div>
+
+      <Travel />
 
       <section id="contact" className="contact">
         <p className="contact-kicker">Contact</p>
