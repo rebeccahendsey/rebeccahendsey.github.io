@@ -10,35 +10,44 @@ const GITHUB = 'https://github.com/rebeccahendsey'
 function App() {
   return (
     <>
-      <div className="strip plaid">
-        <span className="strip-side">New York, NY</span>
-        <nav className="strip-nav" aria-label="Sections">
+      <header className="topbar">
+        <a className="brand" href="#top" aria-label="Rebecca Hendsey, back to top">
+          <span className="brand-mark" aria-hidden="true">rh</span>
+          <span className="brand-name">Rebecca Hendsey</span>
+        </a>
+        <nav className="topnav" aria-label="Sections">
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#journey">Timeline</a>
           <a href="#hobbies">Hobbies</a>
+          <a href="#contact" className="nav-contact">Contact</a>
         </nav>
-        <a className="strip-side strip-cta" href="#contact">Contact</a>
-      </div>
-
-      <header className="hero">
-        <img src="/hero-image.jpeg" alt="" className="hero-bg" />
-        <div className="hero-inner">
-          <h1 className="hero-name">rebecca<br />hendsey</h1>
-          <a href="#work" className="pill pill-light hero-pill">See my work</a>
-        </div>
+        <a className="btn btn-light" href="#contact">Contact <span className="btn-dot" aria-hidden="true">↗</span></a>
       </header>
+
+      <section className="hero" id="top">
+        <div className="hero-copy">
+          <h1 className="hero-name">rebecca<br />hendsey</h1>
+          <p className="hero-sub">
+            Engineer turned project manager in New York, moving into product management &amp; product operations.
+          </p>
+          <a href="#work" className="btn btn-light">See my work <span className="btn-dot" aria-hidden="true">↓</span></a>
+        </div>
+        <figure className="hero-photo">
+          <img src="/hero-image.jpeg" alt="Foggy Manhattan skyline over rooftops" />
+          <figcaption>New York, NY</figcaption>
+        </figure>
+      </section>
 
       <section className="statement">
         <p className="statement-text">
-          Four years of shipping AI tools at IBM taught me the code is the easy part.{' '}
-          <em>Now I’m working on everything else.</em>
+          Four years of shipping AI tools at IBM taught me the code is{' '}
+          <span className="hl">the easy part.</span> Now I’m working on everything else.
         </p>
-        <p className="statement-sub">Engineer turned project manager, moving into product management &amp; product operations.</p>
       </section>
 
       <section id="about" className="about">
-        <h2 className="about-giant" aria-label="About me">About<br />me</h2>
+        <h2 className="about-giant">About me</h2>
         <figure className="about-photo">
           <img src="/hero-image.jpeg" alt="Foggy Manhattan skyline over rooftops" />
         </figure>
@@ -240,7 +249,7 @@ function App() {
         </ul>
       </section>
 
-      <footer className="footer plaid">
+      <footer className="footer">
         <span>© 2026 Rebecca Hendsey</span>
         <span>Made with &lt;3</span>
       </footer>
