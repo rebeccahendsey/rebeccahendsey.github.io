@@ -19,26 +19,6 @@ const VIEWS: { key: ViewKey; label: string }[] = [
 
 const DOT_RADIUS: Record<ViewKey, number> = { world: 3, us: 4.5, northeast: 6 }
 
-// States visited without a specific town to pin
-const STATE_ONLY = ['Maine', 'Vermont', 'Virginia']
-
-function groupByRegion(dots: Dot[]) {
-  const groups = new Map<string, string[]>()
-  dots.forEach((d) => {
-    const names = groups.get(d.region) ?? []
-    if (d.name !== d.region) names.push(d.name)
-    groups.set(d.region, names)
-  })
-  return groups
-}
-
-const US_REGIONS = new Set(map.us.dots.map((d) => d.region))
-const ALL = groupByRegion(map.world.dots as Dot[])
-const ABROAD = [...ALL].filter(([region]) => !US_REGIONS.has(region))
-const AT_HOME = [...ALL].filter(([region]) => US_REGIONS.has(region))
-STATE_ONLY.forEach((s) => AT_HOME.push([s, []]))
-AT_HOME.sort((a, b) => a[0].localeCompare(b[0]))
-
 function Travel() {
   const [view, setView] = useState<ViewKey>('world')
   const [active, setActive] = useState<Dot | null>(null)
@@ -48,7 +28,7 @@ function Travel() {
   return (
     <div className="travel">
       <div className="travel-intro">
-        <h3>Places I’ve <em>pinned.</em></h3>
+        <h3>Places I’ve <em>been.</em></h3>
         <dl className="travel-stats">
           <div><dt>15</dt><dd>countries</dd></div>
           <div><dt>17</dt><dd>states + D.C.</dd></div>
@@ -111,24 +91,6 @@ function Travel() {
         )}
       </div>
 
-      <div className="travel-index">
-        <div>
-          <h3>Abroad</h3>
-          <ul>
-            {ABROAD.map(([region, names]) => (
-              <li key={region}><b>{region}</b>{names.length > 0 && <> · {names.join(', ')}</>}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>At home</h3>
-          <ul>
-            {AT_HOME.map(([region, names]) => (
-              <li key={region}><b>{region}</b>{names.length > 0 && <> · {names.join(', ')}</>}</li>
-            ))}
-          </ul>
-        </div>
-      </div>
     </div>
   )
 }

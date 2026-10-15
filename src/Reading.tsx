@@ -17,7 +17,7 @@ const YEARS = [...new Set(BOOKS.map((b) => b.year).filter((y): y is number => !!
   .sort((a, b) => b - a)
   .slice(0, 3)
 
-const SPINE_COLORS = ['spine-sage', 'spine-charcoal', 'spine-cream', 'spine-lilac', 'spine-moss', 'spine-stone']
+const SPINE_COLORS = ['spine-forest', 'spine-moss', 'spine-cream', 'spine-rust', 'spine-teak', 'spine-sage']
 
 // Stable pseudo-random number from a title, so each spine keeps its look between builds
 function hash(s: string) {
@@ -101,8 +101,7 @@ function Reading() {
       </div>
 
       <p className="hobby-source">
-        Synced from{' '}
-        <a href="https://www.goodreads.com/user/show/136096794" target="_blank" rel="noopener noreferrer">Goodreads</a>
+        <a href="https://www.goodreads.com/user/show/136096794" target="_blank" rel="noopener noreferrer">Check out my Goodreads →</a>
         {UPDATED && <> · updated {new Date(UPDATED).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</>}
       </p>
     </div>

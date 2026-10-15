@@ -1,107 +1,30 @@
 import './App.css'
+import Journey from './Journey'
 import Reading from './Reading'
+import Toolbox from './Toolbox'
 import Travel from './Travel'
-
-type Tag = 'added' | 'changed' | 'fixed' | 'breaking'
-
-interface Release {
-  version: string
-  date: string
-  title: string
-  org: string
-  notes: [Tag, string][]
-}
 
 const EMAIL = 'rebeccahendsey@gmail.com'
 const GITHUB = 'https://github.com/rebeccahendsey'
 
-const RELEASES: Release[] = [
-  {
-    version: '3.0.0',
-    date: 'Sep 2026',
-    title: 'Project Manager',
-    org: 'IBM Expert Labs · New York',
-    notes: [
-      ['changed', 'Moved from building the software to running the projects around it.'],
-      ['added', 'Client software migration projects in the Software Migration Project Office: timelines, resources, and delivery across technical teams and client stakeholders.']
-    ]
-  },
-  {
-    version: '2.0.0',
-    date: 'Oct 2024',
-    title: 'AI Engineer & Product Owner',
-    org: 'IBM · New York',
-    notes: [
-      ['breaking', 'Started owning the roadmap, not just the tickets.'],
-      ['added', 'Product ownership of STARS: 17K+ users, 100K+ visits, four organizations.'],
-      ['added', 'An AI concierge for IBM TechXchange 2025, built front to back.'],
-      ['added', 'Front-end lead on IBM Agentrix, a multi-agent AI playground. Ran stand-ups, PR reviews, and sprint tracking.'],
-      ['added', 'Mentoring for junior engineers.']
-    ]
-  },
-  {
-    version: '1.1.0',
-    date: 'Jun 2022',
-    title: 'Software Developer',
-    org: 'IBM Research · Yorktown Heights',
-    notes: [
-      ['added', 'Full-stack apps (React, Node, Go, SQL) used across IBM Research.'],
-      ['added', 'Python pipelines that turned 3,600+ researchers’ activity into personalized year-end reports.'],
-      ['fixed', 'Test coverage. Kept above 80%, with CI/CD and pre-merge security checks.']
-    ]
-  },
-  {
-    version: '1.0.0',
-    date: 'May 2022',
-    title: 'B.S. Computer Science',
-    org: 'Fordham University · Bronx',
-    notes: [['added', 'First stable release.']]
-  },
-  {
-    version: '0.2.0',
-    date: 'Feb 2020',
-    title: 'Research Assistant',
-    org: 'Laboratory of Informatics and Data Mining · Bronx',
-    notes: [['added', 'Combinatorial fusion analysis on problems like judge bias in figure skating. Two IEEE publications.']]
-  },
-  {
-    version: '0.1.0',
-    date: 'Sep 2019',
-    title: 'Co-President',
-    org: 'Girls Who Code College Loops · Fordham',
-    notes: [['added', 'Talks and coding challenges for 50+ members, and a lot of encouraging women into tech.']]
-  }
-]
-
-const SKILLS = [
-  'Roadmapping', 'Stakeholder management', 'User research', 'Sprint planning', 'Agile / Scrum',
-  'Generative & agentic AI', 'Prompt engineering', 'React', 'TypeScript', 'Python', 'SQL',
-  'Figma', 'watsonx Orchestrate', 'IBM Cloud', 'Docker & Podman', 'CI/CD'
-]
-
 function App() {
   return (
     <>
-      <div className="strip">
+      <div className="strip plaid">
         <span className="strip-side">New York, NY</span>
         <nav className="strip-nav" aria-label="Sections">
-          <span aria-hidden="true">→</span>
           <a href="#about">About</a>
           <a href="#work">Work</a>
-          <a href="#timeline">Timeline</a>
+          <a href="#journey">Timeline</a>
           <a href="#hobbies">Hobbies</a>
-          <a href="#contact">Contact</a>
-          <span aria-hidden="true">←</span>
         </nav>
-        <a className="strip-side strip-cta" href="#contact">Let’s work together</a>
+        <a className="strip-side strip-cta" href="#contact">Contact</a>
       </div>
 
       <header className="hero">
         <img src="/hero-image.jpeg" alt="" className="hero-bg" />
         <div className="hero-inner">
-          <span className="hero-flank hero-flank-l">Product</span>
           <h1 className="hero-name">rebecca<br />hendsey</h1>
-          <span className="hero-flank hero-flank-r">&amp; AI</span>
           <a href="#work" className="pill pill-light hero-pill">See my work</a>
         </div>
       </header>
@@ -111,43 +34,7 @@ function App() {
           Four years of shipping AI tools at IBM taught me the code is the easy part.{' '}
           <em>Now I’m working on everything else.</em>
         </p>
-        <p className="statement-sub">Engineer turned project manager, moving into product management &amp; product ops.</p>
-      </section>
-
-      <div className="band">What I do</div>
-
-      <section className="trio">
-        <article className="trio-col">
-          <h2><span>1.</span> Own the roadmap</h2>
-          <p>
-            As product owner of STARS, I decided what got built next for 17K+ users across four
-            organizations, then did the convincing to get them to use it.
-          </p>
-          <p className="trio-meta">Roadmapping · stakeholders · adoption</p>
-        </article>
-        <article className="trio-col trio-col-mid">
-          <figure className="frame">
-            <video
-              src="/work/concierge-demo.mp4"
-              poster="/work/concierge-demo-poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              aria-label="Screen recording of the TechXchange AI Concierge chat"
-            />
-          </figure>
-          <h2><span>2.</span> Build the thing</h2>
-          <p>I still ship. I designed and built IBM’s TechXchange 2025 AI concierge from the first sketch to the show floor.</p>
-        </article>
-        <article className="trio-col">
-          <h2><span>3.</span> Bring people with me</h2>
-          <p>
-            Stand-ups, PR reviews, sprint tracking, mentoring. These days I run client migration
-            projects at IBM Expert Labs.
-          </p>
-          <p className="trio-meta">Delivery · Agile · communication</p>
-        </article>
+        <p className="statement-sub">Engineer turned project manager, moving into product management &amp; product operations.</p>
       </section>
 
       <section id="about" className="about">
@@ -173,12 +60,31 @@ function App() {
         </div>
       </section>
 
-      <div className="band" id="work">Product work</div>
+      <div className="band" id="work"><span>Product work</span></div>
 
       <section className="work">
+        <article className="project project-stars">
+          <div className="project-copy">
+            <p className="project-no">No. 01 · IBM Lighthouse · 2024–2026</p>
+            <h3>STARS</h3>
+            <p className="project-dek">IBM’s home for client success stories.</p>
+            <p>
+              An existing product on IBM Lighthouse where teams across IBM find and share client
+              success stories. As its product owner I ran the roadmap: gathering stakeholder needs,
+              working cross-functionally to decide what shipped next, and driving adoption across
+              Client Engineering, Technology Sales, Expert Labs, and Customer Success.
+            </p>
+          </div>
+          <dl className="stats">
+            <div><dt>17K<span>+</span></dt><dd>unique users</dd></div>
+            <div><dt>100K<span>+</span></dt><dd>lifetime visits</dd></div>
+            <div><dt>4</dt><dd>organizations</dd></div>
+          </dl>
+        </article>
+
         <article className="project project-pgo">
           <div className="project-copy">
-            <p className="project-no">No. 01 · Columbia Business School, 2026</p>
+            <p className="project-no">No. 02 · Columbia Business School · 2026</p>
             <h3>Pinterest <em>Go</em></h3>
             <p className="project-dek">Turning inspiration into adventure.</p>
             <p>
@@ -211,10 +117,10 @@ function App() {
         <article className="project project-mosaic">
           <div className="mosaic-media">
             <img className="mosaic-poster" src="/work/mosaic-poster.jpg" alt="Mosaic poster: Stop saving. Start living." loading="lazy" />
-            <img className="mosaic-sketch" src="/work/mosaic-sketch-origin.jpg" alt="Rebecca’s hand-drawn sketch exploring meaning, adversity, passage, and signal" loading="lazy" />
+            <img className="mosaic-proto" src="/work/mosaic-prototype.jpg" alt="Three Mosaic prototype screens: today’s action, your monthly mosaic, and taste insights" loading="lazy" />
           </div>
           <div className="project-copy">
-            <p className="project-no">No. 02 · Solo concept</p>
+            <p className="project-no">No. 03 · Solo concept</p>
             <h3>Mosaic</h3>
             <p className="project-dek">Live your board.</p>
             <blockquote className="pullquote">Full boards. Empty weekends.</blockquote>
@@ -227,23 +133,30 @@ function App() {
             <p>My idea from first sketch to prototype: the problem, the persona, the poster, and the product.</p>
             <a className="project-link" href="https://www.figma.com/make/BBeavtOs66Pjj32RwD0VNr/Mosaic?p=f&t=sBxtjsqPPdD5rKlN-0" target="_blank" rel="noopener noreferrer">See the Figma prototype →</a>
           </div>
-          <figure className="mosaic-proto">
-            <img src="/work/mosaic-prototype.jpg" alt="Three Mosaic prototype screens: today’s action, your monthly mosaic, and taste insights" loading="lazy" />
-            <img src="/work/mosaic-sketch-vehicle.jpg" alt="Rebecca’s hand-drawn sketch of the Mosaic vehicle metaphor" loading="lazy" />
-          </figure>
         </article>
       </section>
 
-      <div className="band">Built at IBM</div>
+      <div className="band"><span>Built at IBM</span></div>
 
       <section className="work">
         <article className="project project-concierge">
-          <div className="project-media collage">
-            <img className="collage-main" src="/work/concierge-launchpad.jpg" alt="The AI Concierge on a kiosk in the TechXchange 2025 LaunchPad area" loading="lazy" />
-            <img className="collage-inset" src="/work/concierge-onsite.jpg" alt="AI Concierge screen at the TechXchange venue entrance" loading="lazy" />
+          <div className="concierge-media">
+            <figure className="concierge-video">
+              <video
+                src="/work/concierge-demo.mp4"
+                poster="/work/concierge-demo-poster.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label="Screen recording of the TechXchange AI Concierge chat"
+              />
+            </figure>
+            <img src="/work/concierge-launchpad.jpg" alt="The AI Concierge on a kiosk in the TechXchange 2025 LaunchPad area" loading="lazy" />
+            <img src="/work/concierge-onsite.jpg" alt="AI Concierge screen at the TechXchange venue entrance" loading="lazy" />
           </div>
           <div className="project-copy">
-            <p className="project-no">No. 03 · 2025</p>
+            <p className="project-no">No. 04 · TechXchange 2025</p>
             <h3>TechXchange <em>AI Concierge</em></h3>
             <p>
               An AI assistant that helped TechXchange 2025 attendees find sessions, coffee, menus, and
@@ -256,23 +169,6 @@ function App() {
             </ul>
             <a className="project-link" href={`${GITHUB}/ibm-txc-ai-concierge`} target="_blank" rel="noopener noreferrer">View on GitHub →</a>
           </div>
-        </article>
-
-        <article className="project project-stars">
-          <div className="project-copy">
-            <p className="project-no">No. 04 · 2024–2026</p>
-            <h3>STARS</h3>
-            <p>
-              IBM’s internal home for client success stories. As product owner I ran the roadmap:
-              talking to the teams who used it, deciding what shipped next, and driving adoption across
-              Client Engineering, Technology Sales, Expert Labs, and Customer Success.
-            </p>
-          </div>
-          <dl className="stats">
-            <div><dt>17K<span>+</span></dt><dd>unique users</dd></div>
-            <div><dt>100K<span>+</span></dt><dd>lifetime visits</dd></div>
-            <div><dt>4</dt><dd>organizations</dd></div>
-          </dl>
         </article>
 
         <article className="project project-yearend">
@@ -303,33 +199,9 @@ function App() {
         </p>
       </section>
 
-      <div className="band" id="timeline">Timeline</div>
+      <div className="band" id="journey"><span>Timeline</span></div>
 
-      <section className="timeline">
-        <p className="timeline-note">My career, written as release notes. Newest first.</p>
-        <ol className="releases">
-          {RELEASES.map((r) => (
-            <li key={r.version} className="release">
-              <div className="release-head">
-                <span className="release-version">v{r.version}</span>
-                <span className="release-date">{r.date}</span>
-              </div>
-              <div className="release-body">
-                <h3>{r.title}</h3>
-                <p className="release-org">{r.org}</p>
-                <ul>
-                  {r.notes.map(([tag, text]) => (
-                    <li key={text}>
-                      <span className={`tag tag-${tag}`}>{tag}</span>
-                      <span>{text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <Journey />
 
       <section className="roadmap">
         <div className="roadmap-col">
@@ -338,7 +210,7 @@ function App() {
         </div>
         <div className="roadmap-col roadmap-next">
           <p className="roadmap-label">Next</p>
-          <p className="roadmap-big">A product management or product ops role.</p>
+          <p className="roadmap-big">A product management or product operations role.</p>
         </div>
         <div className="roadmap-col">
           <p className="roadmap-label">Someday</p>
@@ -346,14 +218,11 @@ function App() {
         </div>
       </section>
 
-      <section className="skills">
-        <p className="roadmap-label">Toolkit</p>
-        <ul className="pills pills-wrap">
-          {SKILLS.map((s) => <li key={s} className="pill">{s}</li>)}
-        </ul>
-      </section>
+      <div className="band" id="toolkit"><span>Toolkit</span></div>
 
-      <div className="band" id="hobbies">Off the clock</div>
+      <Toolbox />
+
+      <div className="band" id="hobbies"><span>Off the clock</span></div>
 
       <section className="hobbies">
         <Reading />
@@ -363,7 +232,7 @@ function App() {
       <section id="contact" className="contact">
         <p className="contact-kicker">Contact</p>
         <h2>Let’s work <em>together.</em></h2>
-        <p className="contact-sub">Hiring for product management or product ops? I’d love to hear what you’re building.</p>
+        <p className="contact-sub">Hiring for product management or product operations? I’d love to hear what you’re building.</p>
         <a className="contact-email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
         <ul className="pills contact-links">
           <li><a className="pill pill-light" href="https://www.linkedin.com/in/rebeccahendsey/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
@@ -371,9 +240,9 @@ function App() {
         </ul>
       </section>
 
-      <footer className="footer">
+      <footer className="footer plaid">
         <span>© 2026 Rebecca Hendsey</span>
-        <span>Made in New York</span>
+        <span>Made with &lt;3</span>
       </footer>
     </>
   )
