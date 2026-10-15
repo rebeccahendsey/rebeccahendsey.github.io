@@ -181,9 +181,9 @@ a.pill-light:hover {
 .hero-name {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(4rem, 13vw, 11rem);
+  font-size: clamp(4rem, 14vw, 12rem);
   line-height: 0.92;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.05em;
 }
 
 .hero-flank {
@@ -558,67 +558,140 @@ a.pill-light:hover {
   color: var(--ink);
 }
 
-/* Similarify */
-.similarify-art {
+/* Pinterest Go */
+.project-pgo {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+.project-dek {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--sage);
+  margin: -0.75rem 0 1.25rem;
+}
+
+.project-copy p + p:not(.project-dek) {
+  margin-top: 1rem;
+}
+
+.project-copy strong {
+  font-weight: 700;
+}
+
+.phones {
+  list-style: none;
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 340px;
-  padding: 2rem;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+.phone {
+  flex: 0 1 150px;
+  margin: 0 -14px;
+  transition: transform 0.35s ease;
+}
+
+.phone:nth-child(1) { transform: rotate(-7deg) translateY(18px); }
+.phone:nth-child(2) { transform: rotate(-3.5deg) translateY(4px); }
+.phone:nth-child(3) { transform: translateY(-6px); z-index: 1; }
+.phone:nth-child(4) { transform: rotate(3.5deg) translateY(4px); }
+.phone:nth-child(5) { transform: rotate(7deg) translateY(18px); }
+
+.phone:hover {
+  transform: translateY(-18px) scale(1.06);
+  z-index: 2;
+}
+
+.phone img {
+  width: 100%;
+  border-radius: 18px;
+  border: 5px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 0 24px 40px -24px rgba(42, 41, 38, 0.6);
+}
+
+.phone span {
+  display: block;
+  margin-top: 0.9rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Mosaic */
+.project-mosaic {
+  grid-template-columns: 1fr 1fr;
+}
+
+.mosaic-media {
+  position: relative;
+  padding-bottom: 14%;
+}
+
+.mosaic-poster {
+  width: 88%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.mosaic-sketch {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 46%;
+  background: var(--cream);
+  padding: 0.5rem;
+  border-radius: 6px;
+  transform: rotate(3deg);
+  box-shadow: 0 20px 40px -24px rgba(42, 41, 38, 0.5);
+  transition: transform 0.35s ease;
+}
+
+.mosaic-sketch:hover {
+  transform: rotate(0deg) scale(1.15);
+}
+
+.pullquote {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--sage);
+  border-left: 2px solid var(--sage);
+  padding-left: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.mosaic-proto {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.mosaic-proto img {
+  width: 100%;
   border-radius: 14px;
   background: var(--cream);
 }
 
-.similarify-art span {
-  flex: 1;
-  border-radius: 999px 999px 4px 4px;
-  transform-origin: bottom;
-  animation: eq 2.4s ease-in-out infinite alternate;
-}
-
-.similarify-art span:nth-child(2n) { animation-delay: -0.6s; }
-.similarify-art span:nth-child(3n) { animation-delay: -1.3s; }
-
-@keyframes eq {
-  from { transform: scaleY(1); }
-  to { transform: scaleY(0.55); }
-}
-
-/* Archive */
-.archive {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 1rem 2.5rem;
+.more-link {
   padding: 2rem 0 4rem;
+  text-align: center;
 }
 
-.archive-label {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--sage);
-}
-
-.archive a {
+.more-link a {
   font-family: var(--serif);
-  font-size: 1.3rem;
+  font-style: italic;
+  font-size: 1.2rem;
   text-decoration: none;
-}
-
-.archive a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.archive small {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--sage);
+  border-bottom: 1px solid currentColor;
 }
 
 /* Timeline */
@@ -953,9 +1026,20 @@ a:focus-visible {
     padding: 3.5rem 0;
   }
 
-  .project-yearend .project-media,
-  .project-similarify .similarify-art {
+  .project-yearend .project-media {
     order: -1;
+  }
+
+  .phones {
+    order: -1;
+  }
+
+  .phone {
+    margin: 0 -10px;
+  }
+
+  .mosaic-proto {
+    grid-template-columns: 1fr;
   }
 
   .project-stars {
@@ -964,10 +1048,6 @@ a:focus-visible {
 
   .shot {
     margin: 0 auto;
-  }
-
-  .similarify-art {
-    height: 220px;
   }
 
   .roadmap {

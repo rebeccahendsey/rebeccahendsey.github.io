@@ -97,7 +97,7 @@ function App() {
         <img src="/hero-image.jpeg" alt="" className="hero-bg" />
         <div className="hero-inner">
           <span className="hero-flank hero-flank-l">Product</span>
-          <h1 className="hero-name">Rebecca<br />Hendsey</h1>
+          <h1 className="hero-name">rebecca<br />hendsey</h1>
           <span className="hero-flank hero-flank-r">&amp; AI</span>
           <a href="#work" className="pill pill-light hero-pill">See my work</a>
         </div>
@@ -170,7 +170,68 @@ function App() {
         </div>
       </section>
 
-      <div className="band" id="work">Selected work</div>
+      <div className="band" id="work">Product work</div>
+
+      <section className="work">
+        <article className="project project-pgo">
+          <div className="project-copy">
+            <p className="project-no">No. 01 · Columbia Business School, 2026</p>
+            <h3>Pinterest <em>Go</em></h3>
+            <p className="project-dek">Turning inspiration into adventure.</p>
+            <p>
+              A product concept that turns a Pinterest travel board into a bookable itinerary. “I have
+              40 Pins saved for Kyoto and zero idea what to actually book” was the problem; five taps
+              from a saved board to a booked trip was the answer.
+            </p>
+            <p>
+              Built by a five-person team for Product Management at CBS. Together we wrote the product
+              vision, jobs-to-be-done, business model, and Agile plan, and tested a prototype with three
+              users in Berlin, London, and New York. <strong>I pitched the original concept and led the
+              persona and problem framing.</strong>
+            </p>
+            <dl className="stats stats-inline">
+              <div><dt>5</dt><dd>taps, board to booking</dd></div>
+              <div><dt>$54.4M</dt><dd>est. yearly ad revenue</dd></div>
+            </dl>
+            <a className="project-link" href="https://board-to-dream-trip.lovable.app/" target="_blank" rel="noopener noreferrer">Try the prototype →</a>
+          </div>
+          <ol className="phones" aria-label="Pinterest Go prototype walkthrough">
+            {['feed', 'boards', 'review', 'setup', 'book'].map((step, i) => (
+              <li key={step} className="phone">
+                <img src={`/work/pinterest-go-${step}.jpg`} alt={`Pinterest Go prototype, step ${i + 1}: ${step}`} loading="lazy" />
+                <span>{i + 1} · {step}</span>
+              </li>
+            ))}
+          </ol>
+        </article>
+
+        <article className="project project-mosaic">
+          <div className="mosaic-media">
+            <img className="mosaic-poster" src="/work/mosaic-poster.jpg" alt="Mosaic poster: Stop saving. Start living." loading="lazy" />
+            <img className="mosaic-sketch" src="/work/mosaic-sketch-origin.jpg" alt="Rebecca’s hand-drawn sketch exploring meaning, adversity, passage, and signal" loading="lazy" />
+          </div>
+          <div className="project-copy">
+            <p className="project-no">No. 02 · Solo concept</p>
+            <h3>Mosaic</h3>
+            <p className="project-dek">Live your board.</p>
+            <blockquote className="pullquote">Full boards. Empty weekends.</blockquote>
+            <p>
+              We save hundreds of pins, reels, and threads about the life we want, then never act on
+              them. Mosaic connects to everything you’ve already saved, across Pinterest, Notion,
+              Instagram, Reddit, and TikTok, and turns it into one clear action a day. At the end of
+              each month it gives you a private portrait of who you’re becoming. No feed, no followers.
+            </p>
+            <p>My idea from first sketch to prototype: the problem, the persona, the poster, and the product.</p>
+            <a className="project-link" href="https://www.figma.com/make/BBeavtOs66Pjj32RwD0VNr/Mosaic?p=f&t=sBxtjsqPPdD5rKlN-0" target="_blank" rel="noopener noreferrer">See the Figma prototype →</a>
+          </div>
+          <figure className="mosaic-proto">
+            <img src="/work/mosaic-prototype.jpg" alt="Three Mosaic prototype screens: today’s action, your monthly mosaic, and taste insights" loading="lazy" />
+            <img src="/work/mosaic-sketch-vehicle.jpg" alt="Rebecca’s hand-drawn sketch of the Mosaic vehicle metaphor" loading="lazy" />
+          </figure>
+        </article>
+      </section>
+
+      <div className="band">Built at IBM</div>
 
       <section className="work">
         <article className="project project-concierge">
@@ -179,7 +240,7 @@ function App() {
             <img className="collage-inset" src="/work/concierge-onsite.jpg" alt="AI Concierge screen at the TechXchange venue entrance" loading="lazy" />
           </div>
           <div className="project-copy">
-            <p className="project-no">No. 01 · 2025</p>
+            <p className="project-no">No. 03 · 2025</p>
             <h3>TechXchange <em>AI Concierge</em></h3>
             <p>
               An AI assistant that helped TechXchange 2025 attendees find sessions, coffee, menus, and
@@ -196,7 +257,7 @@ function App() {
 
         <article className="project project-stars">
           <div className="project-copy">
-            <p className="project-no">No. 02 · 2024–2026</p>
+            <p className="project-no">No. 04 · 2024–2026</p>
             <h3>STARS</h3>
             <p>
               IBM’s internal home for client success stories. As product owner I ran the roadmap:
@@ -213,7 +274,7 @@ function App() {
 
         <article className="project project-yearend">
           <div className="project-copy">
-            <p className="project-no">No. 03 · IBM Research</p>
+            <p className="project-no">No. 05 · IBM Research</p>
             <h3>Year-End <em>Summaries</em></h3>
             <p>
               A personalized “year in review” email for every IBM researcher, pulling publications,
@@ -234,32 +295,9 @@ function App() {
           </div>
         </article>
 
-        <article className="project project-similarify">
-          <div className="similarify-art" aria-hidden="true">
-            {['#9aa18a', '#6f7563', '#c9c2b2', '#2c2b28', '#b7ae9c', '#7f8a73', '#d9d3c4'].map((c, i) => (
-              <span key={c} style={{ background: c, height: `${40 + ((i * 37) % 55)}%` }} />
-            ))}
-          </div>
-          <div className="project-copy">
-            <p className="project-no">No. 04 · Side project</p>
-            <h3><em>Similarify</em></h3>
-            <p>
-              Python scripts that pull my Spotify playlists through the Spotify API and use clustering
-              and feature extraction to regroup every song by how similar it sounds.
-            </p>
-            <ul className="pills">
-              <li className="pill">Python</li><li className="pill">Spotify API</li><li className="pill">Clustering</li>
-            </ul>
-            <a className="project-link" href={`${GITHUB}/spotify-playlists`} target="_blank" rel="noopener noreferrer">View on GitHub →</a>
-          </div>
-        </article>
-
-        <div className="archive">
-          <span className="archive-label">From the archive</span>
-          <a href={`${GITHUB}/coinbase`} target="_blank" rel="noopener noreferrer">Coinbase <small>Software Engineering final project</small></a>
-          <a href={`${GITHUB}/cordial`} target="_blank" rel="noopener noreferrer">Cordial <small>Android app, Mobile Device Programming</small></a>
-          <a href={GITHUB} target="_blank" rel="noopener noreferrer">Everything else <small>github.com/rebeccahendsey</small></a>
-        </div>
+        <p className="more-link">
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer">More on GitHub →</a>
+        </p>
       </section>
 
       <div className="band" id="timeline">Timeline</div>
