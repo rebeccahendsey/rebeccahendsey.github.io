@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import map from './data/travel-map.json'
 
-type ViewKey = 'world' | 'us' | 'northeast'
+type ViewKey = 'world' | 'europe' | 'us' | 'northeast'
 
 interface Dot {
   name: string
@@ -13,11 +13,12 @@ interface Dot {
 
 const VIEWS: { key: ViewKey; label: string }[] = [
   { key: 'world', label: 'World' },
-  { key: 'us', label: 'The States' },
+  { key: 'europe', label: 'Europe' },
+  { key: 'us', label: 'US' },
   { key: 'northeast', label: 'Northeast' }
 ]
 
-const DOT_RADIUS: Record<ViewKey, number> = { world: 3, us: 4.5, northeast: 6 }
+const DOT_RADIUS: Record<ViewKey, number> = { world: 3, europe: 6, us: 4.5, northeast: 6 }
 
 function Travel() {
   const [view, setView] = useState<ViewKey>('world')

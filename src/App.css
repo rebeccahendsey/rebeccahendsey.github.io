@@ -629,143 +629,148 @@ a.pill:hover {
   border-bottom: 1px solid var(--ink);
 }
 
-/* Timeline */
-.gantt-scroll {
-  overflow-x: auto;
+/* Timeline: vertical chart, newest at the top, one column per lane */
+.vchart {
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1.5rem;
 }
 
-.gantt {
-  position: relative;
-  min-width: 0;
-  padding: 3rem 1.5rem 2.25rem;
+.vchart-head,
+.vchart-plot {
+  display: grid;
+  grid-template-columns: 3.25rem repeat(3, minmax(0, 1fr));
+  column-gap: 0.5rem;
 }
 
-.gantt-years {
-  position: absolute;
-  inset: 1.25rem 1.5rem 0;
-  pointer-events: none;
+.vchart-head {
+  padding-bottom: 0.75rem;
 }
 
-.gantt-years span {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  padding-left: 0.4rem;
-  border-left: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 0.64rem;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.gantt-lane-label {
-  position: relative;
+.vchart-lane-label {
   font-family: var(--mono);
   font-size: 0.62rem;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
-  margin: 0.75rem 0 0.4rem;
 }
 
-.gantt-row {
+.vchart-plot {
   position: relative;
-  height: 44px;
-  margin-bottom: 6px;
+  height: 680px;
 }
 
-.gantt-bar {
+/* Year lines run across every lane; their labels sit in the first column */
+.vchart-years {
   position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.vchart-years > span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.2rem;
+}
+
+.vchart-today {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--ink);
+  z-index: 2;
+}
+
+.vchart-today span {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.1rem 0.3rem;
+  border-radius: 2px;
+}
+
+.vchart-lane {
+  position: relative;
+}
+
+.vbar {
+  position: absolute;
+  left: 0;
+  right: 0;
   z-index: 1;
-  top: 0;
-  bottom: 0;
   display: flex;
-  align-items: center;
-  padding: 0 0.55rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.6rem;
   border-radius: 4px;
-  font-size: 0.68rem;
-  font-weight: 600;
-  line-height: 1.1;
-  overflow: hidden;
   text-decoration: none;
   color: var(--paper);
   background: var(--ink);
+  overflow: hidden;
   transition: opacity 0.2s ease;
 }
 
-.gantt-bar:hover {
+.vbar:hover {
   opacity: 0.85;
+}
+
+.vbar-text {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.vbar strong {
+  font-size: 0.74rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.vbar small {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
 }
 
 .bar-po { background: var(--ink-2); }
 .bar-dev { background: #4a4844; }
 .bar-ra,
-.bar-gwc {
-  background: var(--panel);
-  color: var(--ink);
-}
-
-.bar-now {
-  overflow: visible;
-}
-
-/* The current role is only weeks long on the chart, so its label sits just
-   below the bar, in the empty stretch of the next row */
-.bar-now span {
-  position: absolute;
-  right: calc(100% + 0.4rem);
-  top: calc(100% + 0.35rem);
-  width: 9rem;
-  text-align: right;
-  font-size: 0.66rem;
-  line-height: 1.15;
-  color: var(--ink);
-}
-
+.bar-gwc,
 .bar-school {
   background: var(--panel);
   color: var(--ink);
 }
 
+/* Started before the chart begins: fade out toward the bottom */
 .bar-fade {
-  background: linear-gradient(90deg, transparent, var(--panel) 22%);
-  justify-content: flex-end;
+  background: linear-gradient(180deg, var(--panel) 70%, transparent);
 }
 
-.bar-dashed {
-  background: transparent;
-  border: 1px dashed var(--ink);
+/* The current role is only weeks long, so its label sits in the empty lane beside it */
+.bar-now {
+  overflow: visible;
+  padding: 0;
 }
 
-.gantt-overlay {
+.bar-now .vbar-text {
   position: absolute;
-  inset: 2.4rem 1.5rem 1.6rem;
-  pointer-events: none;
-}
-
-.gantt-today {
-  position: absolute;
+  left: calc(100% + 0.5rem);
   top: 0;
-  bottom: 0;
-  width: 0;
-  border-left: 1px solid var(--ink);
-}
-
-.gantt-today span {
-  position: absolute;
-  bottom: -1.35rem;
-  left: -1.3rem;
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.1rem 0.35rem;
-  border-radius: 2px;
+  width: 100%;
+  color: var(--ink);
 }
 
 .journey-cols {
@@ -1434,12 +1439,34 @@ button:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .project {
-    grid-template-columns: minmax(0, 1fr);
+  .vchart {
+    padding: 1rem 0.75rem 1.25rem;
   }
 
-  .gantt {
-    min-width: 640px;
+  .vchart-head,
+  .vchart-plot {
+    grid-template-columns: 2.4rem repeat(3, minmax(0, 1fr));
+    column-gap: 0.3rem;
+  }
+
+  .vchart-plot {
+    height: 900px;
+  }
+
+  .vbar {
+    padding: 0.45rem 0.4rem;
+  }
+
+  .vbar strong {
+    font-size: 0.68rem;
+  }
+
+  .vbar small {
+    font-size: 0.54rem;
+  }
+
+  .project {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .about-giant,

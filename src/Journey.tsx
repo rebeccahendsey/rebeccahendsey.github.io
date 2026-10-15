@@ -114,20 +114,21 @@ const SCHOOL: School[] = [
   },
 ];
 
-// Chart runs Jan 2019 to Jan 2028
-const FIRST_YEAR = 2019;
-const LAST_YEAR = 2028;
-const TOTAL = (LAST_YEAR - FIRST_YEAR) * 12;
+// Vertical chart: newest at the top, Jul 2019 at the bottom
+const CHART_START = "2019-07";
+const CHART_END = "2028-01";
 const NOW = new Date();
 const NOW_KEY = `${NOW.getFullYear()}-${String(NOW.getMonth() + 1).padStart(2, "0")}`;
 
-const pos = (ym: string) => {
+const months = (ym: string) => {
   const [y, m] = ym.split("-").map(Number);
-  return Math.min(
-    100,
-    Math.max(0, (((y - FIRST_YEAR) * 12 + (m - 1)) / TOTAL) * 100),
-  );
+  return y * 12 + (m - 1);
 };
+const TOTAL = months(CHART_END) - months(CHART_START);
+
+// Distance from the top of the chart, as a percentage
+const pos = (ym: string) =>
+  Math.min(100, Math.max(0, ((months(CHART_END) - months(ym)) / TOTAL) * 100));
 
 const label = (ym: string | null) => {
   if (!ym) return "Present";
@@ -139,12 +140,12 @@ const label = (ym: string | null) => {
 };
 
 const span = (start: string, end: string | null) => ({
-  left: `${pos(start)}%`,
-  width: `${pos(end ?? NOW_KEY) - pos(start)}%`,
+  top: `${pos(end ?? NOW_KEY)}%`,
+  height: `${pos(start) - pos(end ?? NOW_KEY)}%`,
 });
 
-// Lanes on the chart: IBM roles share one row; overlapping college roles get their own
-const WORK_ROWS = [["dev", "po", "pm"], ["ra"], ["gwc"]];
+// Lanes: IBM roles follow Girls Who Code in one lane; the overlapping research role gets its own
+const WORK_LANES = [["gwc", "dev", "po", "pm"], ["ra"]];
 const SHORT: Record<string, string> = {
   pm: "Project Manager, IBM Expert Labs",
   po: "AI Engineer & Product Owner, IBM CE",
@@ -154,68 +155,79 @@ const SHORT: Record<string, string> = {
 };
 
 function Journey() {
-  const years = Array.from(
-    { length: LAST_YEAR - FIRST_YEAR },
-    (_, i) => FIRST_YEAR + i,
-  );
+  const years = Array.from({ length: 8 }, (_, i) => 2020 + i);
 
   return (
     <section className="journey">
-      <div className="gantt-scroll">
-        <div
-          className="gantt"
-          role="img"
-          aria-label="Chart of work and education from 2019 to 2027"
-        >
-          <div className="gantt-years">
+      <div
+        className="vchart"
+        role="img"
+        aria-label="Chart of work and education from 2019 to 2027"
+      >
+        <div className="vchart-head" aria-hidden="true">
+          <span />
+          <span className="vchart-lane-label">Work</span>
+          <span />
+          <span className="vchart-lane-label">School</span>
+        </div>
+
+        <div className="vchart-plot">
+          <div className="vchart-years" aria-hidden="true">
             {years.map((y) => (
-              <span key={y} style={{ left: `${pos(`${y}-01`)}%` }}>
+              <span key={y} style={{ top: `${pos(`${y}-01`)}%` }}>
                 {y}
               </span>
             ))}
+            <div className="vchart-today" style={{ top: `${pos(NOW_KEY)}%` }}>
+              <span>Today</span>
+            </div>
           </div>
 
-          <p className="gantt-lane-label">Work</p>
-          {WORK_ROWS.map((row, i) => (
-            <div className="gantt-row" key={i}>
-              {row.map((id) => {
+          <span className="vchart-axis" />
+          {WORK_LANES.map((lane, i) => (
+            <div className="vchart-lane" key={i}>
+              {lane.map((id) => {
                 const r = WORK.find((w) => w.id === id)!;
                 return (
                   <a
                     key={id}
                     href={`#role-${id}`}
-                    className={`gantt-bar bar-${id}${r.end ? "" : " bar-now"}`}
+                    className={`vbar bar-${id}${r.end ? "" : " bar-now"}`}
                     style={span(r.start, r.end)}
                   >
-                    {r.end ? SHORT[id] : <span>{SHORT[id]} →</span>}
+                    <span className="vbar-text">
+                      <strong>{SHORT[id]}</strong>
+                      <small>
+                        {label(r.start)} – {label(r.end)}
+                      </small>
+                    </span>
                   </a>
                 );
               })}
             </div>
           ))}
 
-          <p className="gantt-lane-label">School</p>
-          <div className="gantt-row">
-            <a
-              href="#school-fordham"
-              className="gantt-bar bar-school bar-fade"
-              style={span(`${FIRST_YEAR}-01`, "2022-05")}
-            >
-              Fordham · B.S. Computer Science
-            </a>
+          <div className="vchart-lane">
             <a
               href="#school-columbia"
-              className="gantt-bar bar-school bar-fade"
+              className="vbar bar-school bar-fade"
               style={span("2026-01", "2027-12")}
             >
-              Columbia · M.S. Data Science
+              <span className="vbar-text">
+                <strong>Columbia · M.S. Data Science</strong>
+                <small>Expected Dec 2027</small>
+              </span>
             </a>
-          </div>
-
-          <div className="gantt-overlay" aria-hidden="true">
-            <div className="gantt-today" style={{ left: `${pos(NOW_KEY)}%` }}>
-              <span>Today</span>
-            </div>
+            <a
+              href="#school-fordham"
+              className="vbar bar-school bar-fade"
+              style={span(CHART_START, "2022-05")}
+            >
+              <span className="vbar-text">
+                <strong>Fordham · B.S. Computer Science</strong>
+                <small>May 2022</small>
+              </span>
+            </a>
           </div>
         </div>
       </div>
