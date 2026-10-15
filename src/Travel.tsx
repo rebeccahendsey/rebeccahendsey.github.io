@@ -46,9 +46,9 @@ function Travel() {
   const r = DOT_RADIUS[view]
 
   return (
-    <section className="travel">
+    <div className="travel">
       <div className="travel-intro">
-        <h2>Places I’ve <em>pinned.</em></h2>
+        <h3>Places I’ve <em>pinned.</em></h3>
         <dl className="travel-stats">
           <div><dt>15</dt><dd>countries</dd></div>
           <div><dt>17</dt><dd>states + D.C.</dd></div>
@@ -129,7 +129,7 @@ function Travel() {
           </ul>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
 

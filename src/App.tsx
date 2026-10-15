@@ -1,4 +1,5 @@
 import './App.css'
+import Reading from './Reading'
 import Travel from './Travel'
 
 type Tag = 'added' | 'changed' | 'fixed' | 'breaking'
@@ -88,7 +89,7 @@ function App() {
           <a href="#about">About</a>
           <a href="#work">Work</a>
           <a href="#timeline">Timeline</a>
-          <a href="#travel">Travel</a>
+          <a href="#hobbies">Hobbies</a>
           <a href="#contact">Contact</a>
           <span aria-hidden="true">←</span>
         </nav>
@@ -352,9 +353,12 @@ function App() {
         </ul>
       </section>
 
-      <div className="band" id="travel">Off the clock</div>
+      <div className="band" id="hobbies">Off the clock</div>
 
-      <Travel />
+      <section className="hobbies">
+        <Reading />
+        <Travel />
+      </section>
 
       <section id="contact" className="contact">
         <p className="contact-kicker">Contact</p>

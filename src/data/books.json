@@ -1,0 +1,193 @@
+{
+  "source": "snapshot",
+  "updated": null,
+  "current": [],
+  "books": [
+    {
+      "title": "White Nights",
+      "author": "Fyodor Dostoevsky",
+      "year": 2026,
+      "rating": 0
+    },
+    {
+      "title": "The Seven Husbands of Evelyn Hugo",
+      "author": "Taylor Jenkins Reid",
+      "year": 2026,
+      "rating": 0
+    },
+    {
+      "title": "Tennis Lessons",
+      "author": "Susannah Dickey",
+      "year": 2026,
+      "rating": 0
+    },
+    {
+      "title": "People From My Neighbourhood",
+      "author": "Hiromi Kawakami",
+      "year": 2026,
+      "rating": 0
+    },
+    {
+      "title": "Just Kids",
+      "author": "Patti Smith",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "On Earth We're Briefly Gorgeous",
+      "author": "Ocean Vuong",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "The Housemaid",
+      "author": "Freida McFadden",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "Existentialism Is a Humanism",
+      "author": "Jean-Paul Sartre",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "The Secret Life of Bees",
+      "author": "Sue Monk Kidd",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "My Year of Rest and Relaxation",
+      "author": "Ottessa Moshfegh",
+      "year": 2025,
+      "rating": 5
+    },
+    {
+      "title": "The Diary of a Young Girl",
+      "author": "Anne Frank",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "Bluets",
+      "author": "Maggie Nelson",
+      "year": 2025,
+      "rating": 0
+    },
+    {
+      "title": "Things We Do in the Dark",
+      "author": "Jennifer Hillier",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "Sharp Objects",
+      "author": "Gillian Flynn",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Giver",
+      "author": "Lois Lowry",
+      "year": 2024,
+      "rating": 5
+    },
+    {
+      "title": "The Girl with the Dragon Tattoo",
+      "author": "Stieg Larsson",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Couple Next Door",
+      "author": "Shari Lapena",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Courage to Be Disliked",
+      "author": "Ichiro Kishimi & Fumitake Koga",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Subtle Art of Not Giving a F*ck",
+      "author": "Mark Manson",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "Meditations on First Philosophy",
+      "author": "René Descartes",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "Sula",
+      "author": "Toni Morrison",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Importance of Being Earnest",
+      "author": "Oscar Wilde",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Mountain Is You",
+      "author": "Brianna Wiest",
+      "year": 2024,
+      "rating": 5
+    },
+    {
+      "title": "Malibu Rising",
+      "author": "Taylor Jenkins Reid",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "I'm Glad My Mom Died",
+      "author": "Jennette McCurdy",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "Sold",
+      "author": "Patricia McCormick",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Haunting of Hill House",
+      "author": "Shirley Jackson",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Five People You Meet in Heaven",
+      "author": "Mitch Albom",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Tattooist of Auschwitz",
+      "author": "Heather Morris",
+      "year": 2024,
+      "rating": 0
+    },
+    {
+      "title": "The Kite Runner",
+      "author": "Khaled Hosseini",
+      "year": 2024,
+      "rating": 0
+    }
+  ]
+}
