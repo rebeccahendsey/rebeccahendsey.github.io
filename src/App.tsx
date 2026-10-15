@@ -1,312 +1,347 @@
-import { useRef } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
-interface Highlight {
+type Tag = 'added' | 'changed' | 'fixed' | 'breaking'
+
+interface Release {
+  version: string
+  date: string
   title: string
+  org: string
+  notes: [Tag, string][]
+}
+
+interface Feature {
+  id: string
+  name: string
   role: string
-  description: string
-  metrics?: string[]
+  summary: string
+  stat?: { value: string; label: string }
+  details: string[]
 }
 
-interface Job {
-  company: string
-  title: string
-  location: string
-  dates: string
-  bullets: string[]
-}
+const SECTIONS = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'changelog', label: 'Changelog' },
+  { id: 'shipped', label: 'Shipped' },
+  { id: 'roadmap', label: 'Roadmap' },
+  { id: 'requirements', label: 'Requirements' },
+  { id: 'issues', label: 'Known issues' },
+  { id: 'contact', label: 'Contact' }
+]
 
-interface Skill {
-  category: string
-  items: string[]
-}
+const RELEASES: Release[] = [
+  {
+    version: '3.0.0',
+    date: 'Sep 2026',
+    title: 'Project Manager',
+    org: 'IBM Expert Labs · New York',
+    notes: [
+      ['changed', 'Moved from building the software to running the projects around it.'],
+      ['added', 'Client software migration projects in the Software Migration Project Office: timelines, resources, and delivery across technical teams and client stakeholders.']
+    ]
+  },
+  {
+    version: '2.0.0',
+    date: 'Oct 2024',
+    title: 'AI Engineer & Product Owner',
+    org: 'IBM · New York',
+    notes: [
+      ['breaking', 'Started owning the roadmap, not just the tickets.'],
+      ['added', 'Product ownership of STARS: 17K+ users, 100K+ visits, four organizations.'],
+      ['added', 'An AI concierge for IBM TechXchange 2025, built front to back.'],
+      ['added', 'Front-end lead on IBM Agentrix. Ran stand-ups, PR reviews, and sprint tracking.'],
+      ['added', 'Mentoring for junior engineers.']
+    ]
+  },
+  {
+    version: '1.1.0',
+    date: 'Jun 2022',
+    title: 'Software Developer',
+    org: 'IBM Research · Yorktown Heights',
+    notes: [
+      ['added', 'Full-stack apps (React, Node, Go, SQL) used across IBM Research.'],
+      ['added', 'Python pipelines that turned 3,600+ researchers’ activity into personalized year-end reports.'],
+      ['fixed', 'Test coverage. Kept above 80%, with CI/CD and pre-merge security checks.']
+    ]
+  },
+  {
+    version: '1.0.0',
+    date: 'May 2022',
+    title: 'B.S. Computer Science',
+    org: 'Fordham University · Bronx',
+    notes: [['added', 'First stable release.']]
+  },
+  {
+    version: '0.2.0',
+    date: 'Feb 2020',
+    title: 'Research Assistant',
+    org: 'Laboratory of Informatics and Data Mining · Bronx',
+    notes: [['added', 'Combinatorial fusion analysis on problems like judge bias in figure skating. Two IEEE publications.']]
+  },
+  {
+    version: '0.1.0',
+    date: 'Sep 2019',
+    title: 'Co-President',
+    org: 'Girls Who Code College Loops · Fordham',
+    notes: [['added', 'Talks and coding challenges for 50+ members, and a lot of encouraging women into tech.']]
+  }
+]
+
+const FEATURES: Feature[] = [
+  {
+    id: 'STARS',
+    name: 'STARS',
+    role: 'Product owner',
+    summary: 'IBM’s internal platform for client success stories. I owned the roadmap: talking to the teams who used it, deciding what got built next, and getting four organizations to actually adopt it.',
+    stat: { value: '17K+', label: 'unique users' },
+    details: ['100K+ lifetime visits', 'Client Engineering, Technology Sales, Expert Labs, Customer Success']
+  },
+  {
+    id: 'TXC-25',
+    name: 'TechXchange AI Concierge',
+    role: 'Design + build',
+    summary: 'An AI assistant for attendees of IBM TechXchange 2025. I took it from idea to launch myself: React front end, watsonx Orchestrate agent, Code Engine deployment.',
+    details: ['React', 'watsonx Orchestrate', 'IBM Cloud Code Engine']
+  },
+  {
+    id: 'AGX',
+    name: 'IBM Agentrix',
+    role: 'Front-end lead',
+    summary: 'A playground for multi-agent AI. I wrote production React with the Carbon Design System and ran the front-end team’s day-to-day delivery.',
+    details: ['Stand-ups', 'PR reviews', 'Sprint tracking']
+  },
+  {
+    id: 'YIR',
+    name: 'Research year-in-review',
+    role: 'Data pipelines',
+    summary: 'Personalized year-end reports for IBM researchers, built from projects, publications, and code pulled from several sources, including GitHub’s GraphQL API.',
+    stat: { value: '3,600+', label: 'profiles' },
+    details: ['Python', 'GraphQL', 'Kafka notifications']
+  }
+]
+
+const REQUIREMENTS: { group: string; items: string[] }[] = [
+  {
+    group: 'Product',
+    items: ['Roadmapping', 'Stakeholder management', 'User research', 'Sprint planning', 'Agile / Scrum', 'Writing things down clearly']
+  },
+  {
+    group: 'Technical',
+    items: ['Generative & agentic AI', 'Prompt engineering', 'TypeScript, React, Vue, Node', 'Python & SQL', 'CI/CD & code review']
+  },
+  {
+    group: 'Tools',
+    items: ['Figma', 'watsonx Orchestrate', 'IBM Cloud', 'GitHub', 'Docker & Podman', 'PostgreSQL']
+  }
+]
+
+const EMAIL = 'rebeccahendsey@gmail.com'
 
 function App() {
-  const aboutRef = useRef<HTMLElement>(null)
-  const highlightsRef = useRef<HTMLElement>(null)
-  const experienceRef = useRef<HTMLElement>(null)
-  const skillsRef = useRef<HTMLElement>(null)
-  const contactRef = useRef<HTMLElement>(null)
+  const [active, setActive] = useState('overview')
+  const [copied, setCopied] = useState(false)
 
-  const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id)
+        })
+      },
+      { rootMargin: '-30% 0px -60% 0px' }
+    )
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [])
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    } catch {
+      window.location.href = `mailto:${EMAIL}`
+    }
   }
 
-  const highlights: Highlight[] = [
-    {
-      title: 'STARS',
-      role: 'Product Owner',
-      description:
-        'Owned the roadmap for IBM’s internal client success stories platform: gathered stakeholder needs, prioritized features, and drove adoption across Client Engineering, Technology Sales, Expert Labs, and Customer Success.',
-      metrics: ['17K+ unique users', '100K+ lifetime visits', '4 organizations']
-    },
-    {
-      title: 'TechXchange 2025 AI Concierge',
-      role: 'Designer & Engineer',
-      description:
-        'Took an AI concierge for IBM TechXchange 2025 from idea to launch end-to-end: the React front-end, the watsonx Orchestrate agent, and the IBM Cloud Code Engine deployment.'
-    },
-    {
-      title: 'IBM Agentrix',
-      role: 'Front-end Lead',
-      description:
-        'Led front-end delivery for a multi-agent, agentic AI playground, running stand-ups, PR reviews, and sprint tracking while building production React components with the Carbon Design System.'
-    }
-  ]
-
-  const jobs: Job[] = [
-    {
-      company: 'IBM',
-      title: 'Project Manager',
-      location: 'New York, NY',
-      dates: 'Sep 2026 – Present',
-      bullets: [
-        'Manage client software migration projects within IBM Expert Labs’ Software Migration Project Office (SMPO), coordinating timelines, resources, and delivery across technical teams and client stakeholders.'
-      ]
-    },
-    {
-      company: 'IBM',
-      title: 'AI Engineer & Product Owner',
-      location: 'New York, NY',
-      dates: 'Oct 2024 – Sep 2026',
-      bullets: [
-        'Product owner of STARS (17K+ users, 100K+ visits): owned the roadmap, gathered stakeholder needs, and drove feature adoption across four organizations.',
-        'Designed, built, and deployed an AI concierge for IBM TechXchange 2025 end-to-end.',
-        'Led front-end development and the team’s delivery process for IBM Agentrix, a multi-agent AI playground.',
-        'Mentored junior engineers through technical guidance and career development support.'
-      ]
-    },
-    {
-      company: 'IBM Research',
-      title: 'Software Developer',
-      location: 'Yorktown Heights, NY',
-      dates: 'Jun 2022 – Oct 2024',
-      bullets: [
-        'Shipped production full-stack applications (React, Node, Go, SQL) used across IBM Research in an Agile environment.',
-        'Built Python data workflows across 3,600+ researcher profiles to deliver personalized year-end reports.',
-        'Maintained 80%+ test coverage with CI/CD pipelines and pre-merge security checks.'
-      ]
-    },
-    {
-      company: 'Laboratory of Informatics and Data Mining',
-      title: 'Research Assistant',
-      location: 'Bronx, NY',
-      dates: 'Feb 2020 – May 2022',
-      bullets: [
-        'Applied combinatorial fusion analysis to interdisciplinary problems, contributing to two IEEE publications.'
-      ]
-    },
-    {
-      company: 'Girls Who Code College Loops, Fordham',
-      title: 'Co-President',
-      location: 'Bronx, NY',
-      dates: 'Sep 2019 – May 2022',
-      bullets: [
-        'Led presentations and coding challenges for 50+ members and built a supportive network for women in tech.'
-      ]
-    }
-  ]
-
-  const skills: Skill[] = [
-    {
-      category: 'Product & Delivery',
-      items: [
-        'Roadmapping',
-        'Stakeholder management',
-        'User research',
-        'Sprint planning',
-        'Agile / Scrum',
-        'Cross-functional collaboration'
-      ]
-    },
-    {
-      category: 'AI & Engineering',
-      items: [
-        'Generative & agentic AI',
-        'Prompt engineering',
-        'TypeScript / JavaScript',
-        'React, Vue, Node.js',
-        'Python & SQL',
-        'CI/CD & code review'
-      ]
-    },
-    {
-      category: 'Tools & Platforms',
-      items: [
-        'Figma',
-        'watsonx Orchestrate',
-        'IBM Cloud & Code Engine',
-        'Git & GitHub',
-        'Docker & Podman',
-        'PostgreSQL'
-      ]
-    }
-  ]
-
   return (
-    <>
-      <nav className="navbar">
-        <div className="container nav-container">
-          <div className="nav-brand">
-            <h1>Rebecca Hendsey</h1>
-          </div>
-          <ul className="nav-menu">
-            <li><a onClick={() => scrollToSection(aboutRef)}>About</a></li>
-            <li><a onClick={() => scrollToSection(highlightsRef)}>Work</a></li>
-            <li><a onClick={() => scrollToSection(experienceRef)}>Experience</a></li>
-            <li><a onClick={() => scrollToSection(skillsRef)}>Skills</a></li>
-            <li><a onClick={() => scrollToSection(contactRef)}>Contact</a></li>
-          </ul>
-        </div>
-      </nav>
-
-      <header className="hero">
-        <img src="/hero-image.jpeg" alt="Foggy New York City skyline" className="hero-image" />
-        <div className="container">
-          <div className="hero-content">
-            <h1>Product-minded AI engineer</h1>
-            <p>
-              I turn ambiguous ideas into products people actually use — from roadmap and
-              stakeholder alignment through to shipped code.
-            </p>
-            <div className="hero-actions">
-              <a onClick={() => scrollToSection(highlightsRef)} className="btn btn-solid">See my work</a>
-              <a onClick={() => scrollToSection(contactRef)} className="btn btn-primary">Get in touch</a>
-            </div>
-          </div>
-        </div>
+    <div className="doc">
+      <header className="topbar">
+        <span className="topbar-file">rebecca.hendsey</span>
+        <span className="topbar-version">v3.0.0</span>
+        <span className="status"><span className="status-dot" />open to PM roles</span>
+        <span className="topbar-updated">last edited Oct 2026</span>
       </header>
 
-      <section ref={aboutRef} className="about">
-        <div className="container">
-          <h2>About Me</h2>
-          <p>
-            I’m a software and AI engineer moving toward product management and product operations.
-            Over 4+ years at IBM, I’ve shipped generative AI tools and full-stack applications
-            end-to-end — and found that the part I enjoy most is everything around the code: figuring
-            out what users need, aligning stakeholders, shaping the roadmap, and getting a team to
-            deliver.
-          </p>
-          <p>
-            As product owner of STARS, I grew an internal platform to 17K+ users across four
-            organizations. Today I’m a Project Manager in IBM Expert Labs, coordinating client software
-            migrations across technical teams and client stakeholders, while completing an M.S. in Data
-            Science at Columbia with a focus on product management and innovation.
-          </p>
-          <p>
-            I’m looking for product management and product ops roles where a strong technical
-            foundation helps teams make better decisions and ship products people genuinely connect with.
-          </p>
-        </div>
-      </section>
+      <div className="layout">
+        <nav className="toc" aria-label="Sections">
+          <p className="toc-label">Contents</p>
+          <ol>
+            {SECTIONS.map((s, i) => (
+              <li key={s.id}>
+                <a href={`#${s.id}`} className={active === s.id ? 'is-active' : ''}>
+                  <span className="toc-num">{String(i).padStart(2, '0')}</span>
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
 
-      <section ref={highlightsRef} className="highlights">
-        <div className="container">
-          <h2>Product Highlights</h2>
-          <div className="highlights-grid">
-            {highlights.map((h) => (
-              <div key={h.title} className="highlight-card">
-                <span className="highlight-role">{h.role}</span>
-                <h3>{h.title}</h3>
-                <p>{h.description}</p>
-                {h.metrics && (
-                  <ul className="highlight-metrics">
-                    {h.metrics.map((m) => (
-                      <li key={m}>{m}</li>
+        <main>
+          <section id="overview" className="section">
+            <p className="eyebrow">Product spec · Rebecca Hendsey</p>
+            <h1 className="display">
+              I spent four years writing code and kept drifting toward the <em>questions around it.</em>
+            </h1>
+            <p className="lede">
+              Who is this for? What ships first? How do we get people to actually use it? I’m an
+              engineer turned project manager at IBM, and I’m making those questions my job.
+            </p>
+
+            <dl className="meta">
+              <div><dt>Owner</dt><dd>Rebecca Hendsey</dd></div>
+              <div><dt>Location</dt><dd>New York, NY</dd></div>
+              <div><dt>Current release</dt><dd>Project Manager, IBM Expert Labs</dd></div>
+              <div><dt>In development</dt><dd>M.S. Data Science, Columbia</dd></div>
+              <div><dt>Status</dt><dd><span className="status-dot" /> Looking for product management &amp; product ops roles</dd></div>
+            </dl>
+
+            <figure className="figure">
+              <img src="/hero-image.jpeg" alt="Foggy Manhattan skyline over rooftops" />
+              <figcaption>fig. 1 · Field research, Manhattan</figcaption>
+            </figure>
+          </section>
+
+          <section id="changelog" className="section">
+            <h2 className="section-title"><span>01</span>Changelog</h2>
+            <p className="section-note">Every release so far, newest first.</p>
+            <ol className="releases">
+              {RELEASES.map((r) => (
+                <li key={r.version} className="release">
+                  <div className="release-head">
+                    <span className="release-version">v{r.version}</span>
+                    <span className="release-date">{r.date}</span>
+                  </div>
+                  <div className="release-body">
+                    <h3>{r.title}</h3>
+                    <p className="release-org">{r.org}</p>
+                    <ul>
+                      {r.notes.map(([tag, text]) => (
+                        <li key={text}>
+                          <span className={`tag tag-${tag}`}>{tag}</span>
+                          <span>{text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section id="shipped" className="section">
+            <h2 className="section-title"><span>02</span>Shipped</h2>
+            <p className="section-note">Things I’ve owned, built, or both.</p>
+            <div className="features">
+              {FEATURES.map((f) => (
+                <article key={f.id} className={`feature${f.stat ? ' has-stat' : ''}`}>
+                  <div className="feature-top">
+                    <span className="feature-id">{f.id}</span>
+                    <span className="feature-role">{f.role}</span>
+                  </div>
+                  <h3>{f.name}</h3>
+                  {f.stat && (
+                    <p className="feature-stat">
+                      {f.stat.value}<small>{f.stat.label}</small>
+                    </p>
+                  )}
+                  <p className="feature-summary">{f.summary}</p>
+                  <p className="feature-details">{f.details.join(' / ')}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section id="roadmap" className="section">
+            <h2 className="section-title"><span>03</span>Roadmap</h2>
+            <p className="section-note">Subject to change. That’s what roadmaps are for.</p>
+            <div className="board">
+              <div className="lane">
+                <h3>Now</h3>
+                <div className="card">Running client migration projects at IBM Expert Labs</div>
+                <div className="card">M.S. Data Science at Columbia: Product Management, Innovation &amp; Design Lab</div>
+              </div>
+              <div className="lane lane-next">
+                <h3>Next</h3>
+                <div className="card card-hot">A product management or product ops role, ideally on something people use every day</div>
+              </div>
+              <div className="lane">
+                <h3>Later</h3>
+                <div className="card card-ghost">Build a product of my own</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="requirements" className="section">
+            <h2 className="section-title"><span>04</span>Requirements</h2>
+            <p className="section-note">Acceptance criteria, all passing.</p>
+            <div className="reqs">
+              {REQUIREMENTS.map((g) => (
+                <div key={g.group}>
+                  <h3>{g.group}</h3>
+                  <ul>
+                    {g.items.map((item) => (
+                      <li key={item}><span className="check" aria-hidden="true">✓</span>{item}</li>
                     ))}
                   </ul>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section ref={experienceRef} className="experience">
-        <div className="container">
-          <h2>Experience</h2>
-          <div className="timeline">
-            {jobs.map((job) => (
-              <div key={`${job.company}-${job.title}`} className="job">
-                <div className="job-header">
-                  <div>
-                    <h3>{job.title}</h3>
-                    <p className="job-company">{job.company} · {job.location}</p>
-                  </div>
-                  <span className="job-dates">{job.dates}</span>
                 </div>
-                <ul>
-                  {job.bullets.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <h2 className="education-heading">Education</h2>
-          <div className="timeline">
-            <div className="job">
-              <div className="job-header">
-                <div>
-                  <h3>M.S. in Data Science (part-time)</h3>
-                  <p className="job-company">Columbia University · New York, NY</p>
-                </div>
-                <span className="job-dates">Expected Dec 2027</span>
-              </div>
-              <ul>
-                <li>Coursework: Product Management, Innovation and Design Lab, Probability and Statistics, Computer Systems for Data Science</li>
-              </ul>
+              ))}
             </div>
-            <div className="job">
-              <div className="job-header">
-                <div>
-                  <h3>B.S. in Computer Science</h3>
-                  <p className="job-company">Fordham University · Bronx, NY</p>
-                </div>
-                <span className="job-dates">May 2022</span>
-              </div>
+          </section>
+
+          <section id="issues" className="section">
+            <h2 className="section-title"><span>05</span>Known issues</h2>
+            <ul className="issues">
+              <li>
+                <span className="issue-num">#12</span>
+                <span>Asks “who is this for?” in every meeting.</span>
+                <span className="issue-state">won’t fix</span>
+              </li>
+              <li>
+                <span className="issue-num">#31</span>
+                <span>Has opinions about button padding.</span>
+                <span className="issue-state">working as intended</span>
+              </li>
+            </ul>
+          </section>
+
+          <section id="contact" className="section contact">
+            <h2 className="section-title"><span>06</span>Contact</h2>
+            <p className="display display-sm">Have a feature request? <em>Open a ticket.</em></p>
+            <div className="contact-row">
+              <a className="email" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <button type="button" className="copy" onClick={copyEmail}>
+                {copied ? 'copied ✓' : 'copy'}
+              </button>
             </div>
-          </div>
-        </div>
-      </section>
+            <ul className="links">
+              <li><a href="https://www.linkedin.com/in/rebeccahendsey/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+              <li><a href="https://github.com/rebeccahendsey" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
+            </ul>
+          </section>
 
-      <section ref={skillsRef} className="skills">
-        <div className="container">
-          <h2>Skills</h2>
-          <div className="skills-grid">
-            {skills.map((skill) => (
-              <div key={skill.category} className="skill">
-                <h3>{skill.category}</h3>
-                <ul>
-                  {skill.items.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section ref={contactRef} className="contact">
-        <div className="container">
-          <h2>Get In Touch</h2>
-          <p>Hiring for product management or product ops? I’d love to chat.</p>
-          <div className="contact-links">
-            <a href="mailto:rebeccahendsey@gmail.com" className="btn btn-primary">Send Email</a>
-            <a href="https://github.com/rebeccahendsey" target="_blank" rel="noopener noreferrer" className="social-link">GitHub</a>
-            <a href="https://www.linkedin.com/in/rebeccahendsey/" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-          </div>
-        </div>
-      </section>
-
-      <footer>
-        <div className="container">
-          <p>&copy; 2026 Rebecca Hendsey. All rights reserved.</p>
-        </div>
-      </footer>
-    </>
+          <footer className="footer">
+            <span>© 2026 Rebecca Hendsey</span>
+            <span>v3.0.0 · built in New York</span>
+          </footer>
+        </main>
+      </div>
+    </div>
   )
 }
 
