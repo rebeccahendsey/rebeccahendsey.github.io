@@ -62,26 +62,8 @@ function App() {
         </figure>
       </section>
 
-      <section className="where" aria-label="Where I've worked and studied">
-        <p className="where-label">Where I’ve been</p>
-        <ul>
-          <li>IBM Client Engineering</li>
-          <li>IBM Research</li>
-          <li>IBM Expert Labs</li>
-          <li>Columbia University</li>
-          <li>Fordham University</li>
-          <li>Girls Who Code</li>
-        </ul>
-      </section>
-
       <section id="about" className="about">
         <h2 className="about-giant">About me</h2>
-        <figure className="about-photo">
-          <img
-            src="/hero-image.jpeg"
-            alt="Foggy Manhattan skyline over rooftops"
-          />
-        </figure>
         <div className="about-text">
           <p className="about-hello">
             Nice to meet you,
@@ -395,7 +377,7 @@ function App() {
 
       <div className="band" id="hobbies">
         <h2>Off the clock</h2>
-        <p>What I’m reading and where I’ve been.</p>
+        <p>I love reading &amp; traveling</p>
       </div>
 
       <section className="hobbies">

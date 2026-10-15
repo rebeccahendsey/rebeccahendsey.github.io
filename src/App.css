@@ -66,14 +66,13 @@ em {
 
 #root > .topbar,
 #root > .hero,
-#root > .where,
 #root > .about,
 #root > .contact,
 #root > .footer {
   grid-column: 1 / -1;
 }
 
-#root > section:not(.hero, .where, .about, .contact) {
+#root > section:not(.hero, .about, .contact) {
   grid-column: 2;
   min-width: 0;
   border-top: 1px solid var(--line);
@@ -83,7 +82,6 @@ em {
 
 /* Small mono label used across the page */
 .label,
-.where-label,
 .project-no,
 .tray-label,
 .journey-heading,
@@ -278,35 +276,6 @@ a.pill:hover {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
-/* Where I've been strip */
-.where {
-  display: grid;
-  grid-template-columns: var(--label-col) minmax(0, 1fr);
-  align-items: center;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin-top: 1rem;
-}
-
-.where-label {
-  padding: 1.5rem 0;
-}
-
-.where ul {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  padding: 1.5rem 0 1.5rem 2.5rem;
-  border-left: 1px solid var(--line);
-  font-family: var(--display);
-  font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: -0.02em;
-  color: var(--ink-2);
-}
-
 /* Section headers in the left column */
 .band {
   grid-column: 1;
@@ -335,7 +304,7 @@ a.pill:hover {
 /* About */
 .about {
   display: grid;
-  grid-template-columns: var(--label-col) minmax(0, 1fr) minmax(0, 0.75fr);
+  grid-template-columns: var(--label-col) minmax(0, 1fr);
   border-top: 1px solid var(--line);
   margin-top: 3rem;
 }
@@ -358,20 +327,6 @@ a.pill:hover {
   padding: 2.5rem 2.5rem 4rem;
   border-left: 1px solid var(--line);
   max-width: 44rem;
-}
-
-.about-photo {
-  grid-column: 3;
-  grid-row: 1;
-  padding: 2.5rem 0 4rem;
-}
-
-.about-photo img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: 70% center;
-  border-radius: var(--radius);
 }
 
 .about-hello {
@@ -403,20 +358,21 @@ a.pill:hover {
 
 .project {
   display: grid;
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem 2.5rem;
+  align-items: start;
   padding-bottom: 3.5rem;
   border-bottom: 1px solid var(--line);
 }
 
-/* Media first, then the caption row and copy */
-.project > :not(.project-copy) {
+/* Heading and copy always come first, media and stats after */
+.project-copy {
   order: -1;
 }
 
 .project-copy {
   display: grid;
   justify-items: start;
-  max-width: 46rem;
   min-width: 0;
 }
 
@@ -518,13 +474,33 @@ a.pill:hover {
   color: var(--muted);
 }
 
+.project > .stats {
+  grid-template-columns: minmax(0, 1fr);
+  border-bottom: none;
+}
+
+.project > .stats div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-left: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.project > .stats dd {
+  margin-top: 0;
+  text-align: right;
+}
+
 .stats-inline {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: 1.5rem;
 }
 
 .stats-inline dt {
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
 }
 
 /* Pinterest Go */
@@ -539,8 +515,8 @@ a.pill:hover {
 }
 
 .phone {
-  flex: 0 1 150px;
-  margin: 0 -10px;
+  flex: 0 1 120px;
+  margin: 0 -8px;
   transition: transform 0.35s ease;
 }
 
@@ -576,7 +552,7 @@ a.pill:hover {
 /* Mosaic */
 .mosaic-media {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.75rem;
   align-items: stretch;
 }
@@ -597,12 +573,13 @@ a.pill:hover {
 /* TechXchange concierge */
 .concierge-media {
   display: grid;
-  grid-template-columns: 1fr 1.25fr 1.25fr;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 0.75rem;
-  align-items: stretch;
+  align-items: start;
 }
 
 .concierge-video {
+  grid-row: 1 / span 2;
   aspect-ratio: 720 / 964;
   border-radius: var(--radius);
   overflow: hidden;
@@ -618,7 +595,7 @@ a.pill:hover {
 
 .concierge-media > img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: var(--radius);
 }
@@ -662,7 +639,7 @@ a.pill:hover {
 
 .gantt {
   position: relative;
-  min-width: 800px;
+  min-width: 0;
   padding: 3rem 1.5rem 2.25rem;
 }
 
@@ -696,23 +673,23 @@ a.pill:hover {
 
 .gantt-row {
   position: relative;
-  height: 32px;
+  height: 44px;
   margin-bottom: 6px;
 }
 
 .gantt-bar {
   position: absolute;
+  z-index: 1;
   top: 0;
   bottom: 0;
   display: flex;
   align-items: center;
-  padding: 0 0.75rem;
+  padding: 0 0.55rem;
   border-radius: 4px;
-  font-size: 0.76rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  white-space: nowrap;
+  line-height: 1.1;
   overflow: hidden;
-  text-overflow: ellipsis;
   text-decoration: none;
   color: var(--paper);
   background: var(--ink);
@@ -735,15 +712,15 @@ a.pill:hover {
   overflow: visible;
 }
 
-/* The current role is only weeks long on the chart, so its label sits beside the bar */
+/* The current role is only weeks long on the chart, so its label sits just
+   below the bar, in the empty stretch of the next row */
 .bar-now span {
   position: absolute;
-  left: calc(100% + 0.45rem);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6.2rem;
-  white-space: normal;
-  font-size: 0.64rem;
+  right: calc(100% + 0.4rem);
+  top: calc(100% + 0.35rem);
+  width: 9rem;
+  text-align: right;
+  font-size: 0.66rem;
   line-height: 1.15;
   color: var(--ink);
 }
@@ -1409,38 +1386,13 @@ button:focus-visible {
 }
 
 /* Responsive */
-@media (max-width: 1100px) {
-  .concierge-media {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .concierge-video {
-    grid-row: 1 / span 2;
-  }
-
-  .about {
-    grid-template-columns: var(--label-col) minmax(0, 1fr);
-  }
-
-  .about-photo {
-    grid-column: 2;
-    grid-row: 2;
-    padding: 0 2.5rem 4rem;
-    border-left: 1px solid var(--line);
-  }
-
-  .about-photo img {
-    aspect-ratio: 16 / 10;
-  }
-}
-
 @media (max-width: 900px) {
   #root {
     grid-template-columns: minmax(0, 1fr);
     padding: 0 1rem;
   }
 
-  #root > section:not(.hero, .where, .about, .contact) {
+  #root > section:not(.hero, .about, .contact) {
     grid-column: 1;
     border-left: none;
     border-top: none;
@@ -1477,25 +1429,21 @@ button:focus-visible {
     aspect-ratio: 4 / 3;
   }
 
-  .where,
   .about,
   .contact {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .where-label {
-    padding: 1rem 0 0;
+  .project {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .where ul {
-    border-left: none;
-    padding: 0.75rem 0 1rem;
-    justify-content: flex-start;
+  .gantt {
+    min-width: 640px;
   }
 
   .about-giant,
-  .about-text,
-  .about-photo {
+  .about-text {
     grid-column: 1;
     grid-row: auto;
     border-left: none;
