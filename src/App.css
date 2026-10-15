@@ -1,18 +1,20 @@
-/* Studio grid: near-black opener and closer, warm cream body, hairline-ruled sections, rounded photo cards, one orange accent. */
+/* Quiet studio: charcoal opener and closer, stone-cream body, hairline-ruled sections, thin serif display type, black-and-white photos, soft sage accent. */
 :root {
-  --cream: #efe9dd;
-  --cream-2: #e4dccb;
-  --card: #f7f3eb;
-  --ink: #161513;
-  --char: #1c1b19;
-  --char-2: #292724;
-  --orange: #e2683c;
-  --sage: #8f9a86;
-  --muted: #6e695f;
-  --muted-dark: #a39c8e;
-  --line: rgba(22, 21, 19, 0.16);
-  --line-dark: rgba(239, 233, 221, 0.14);
-  --radius: 22px;
+  --cream: #ebe7dc;
+  --cream-2: #dfd9ca;
+  --card: #f3f0e8;
+  --ink: #23231f;
+  --char: #262622;
+  --char-2: #33332e;
+  --accent: #6f7d5c;
+  --accent-light: #b7bfa5;
+  --sage: #9aa48a;
+  --muted: #6c6a61;
+  --muted-dark: #a19e93;
+  --line: rgba(35, 35, 31, 0.16);
+  --line-dark: rgba(235, 231, 220, 0.14);
+  --radius: 8px;
+  --serif: "Cormorant Garamond", "Didot", Georgia, serif;
   --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
   color-scheme: light;
@@ -39,7 +41,7 @@ body {
 }
 
 ::selection {
-  background: var(--orange);
+  background: var(--accent);
   color: var(--card);
 }
 
@@ -55,7 +57,7 @@ video {
 
 em {
   font-style: normal;
-  color: var(--orange);
+  color: var(--accent);
 }
 
 /* Buttons and pills */
@@ -100,7 +102,7 @@ em {
 }
 
 .btn:hover {
-  background: var(--orange);
+  background: var(--accent);
   color: var(--card);
 }
 
@@ -206,62 +208,61 @@ a.pill-light:hover {
 /* Hero */
 .hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: stretch;
-  padding: 4rem 2rem 4.5rem;
+  gap: 2.5rem;
+  padding: 4rem 2rem 2rem;
   background: var(--char);
   color: var(--cream);
 }
 
-.hero-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+.hero-top {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 22rem);
   gap: 2rem;
-  min-width: 0;
+  align-items: end;
 }
 
 .hero-name {
-  font-weight: 600;
-  font-size: clamp(4rem, 10vw, 9rem);
-  line-height: 0.88;
-  letter-spacing: -0.06em;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(4.5rem, 13vw, 12rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+}
+
+.hero-aside {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: start;
+  padding-bottom: 0.75rem;
 }
 
 .hero-sub {
-  max-width: 24rem;
   color: var(--muted-dark);
-  font-size: 1.05rem;
+  font-size: 1.02rem;
 }
 
 .hero-photo {
   position: relative;
-  min-height: 420px;
 }
 
 .hero-photo img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 21 / 8;
   object-fit: cover;
-  object-position: center 70%;
+  object-position: center 68%;
   border-radius: var(--radius);
-  filter: sepia(0.25) saturate(0.9);
+  filter: grayscale(1) contrast(1.08);
 }
 
 .hero-photo figcaption {
   position: absolute;
-  left: 1rem;
+  right: 1rem;
   bottom: 1rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: var(--cream);
-  color: var(--ink);
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
+  letter-spacing: 0.08em;
+  color: var(--cream);
 }
 
 /* Statement */
@@ -281,12 +282,8 @@ a.pill-light:hover {
 }
 
 .hl {
-  display: inline-block;
-  padding: 0 0.45em;
-  border: 2px solid var(--orange);
-  border-radius: 999px;
-  color: var(--orange);
-  line-height: 1.05;
+  font-style: italic;
+  color: var(--accent);
 }
 
 /* Section headers */
@@ -302,13 +299,6 @@ a.pill-light:hover {
   text-transform: uppercase;
 }
 
-.band span::before {
-  content: "■";
-  color: var(--orange);
-  font-size: 0.4em;
-  vertical-align: 0.55em;
-  margin-right: 0.6rem;
-}
 
 /* About */
 .about {
@@ -332,13 +322,6 @@ a.pill-light:hover {
 }
 
 
-.about-giant::before {
-  content: "■";
-  color: var(--orange);
-  font-size: 0.4em;
-  vertical-align: 0.55em;
-  margin-right: 0.6rem;
-}
 
 .about-photo {
   grid-column: 2;
@@ -421,7 +404,7 @@ a.pill-light:hover {
 .project-dek {
   font-size: 1.15rem;
   font-weight: 500;
-  color: var(--orange);
+  color: var(--accent);
   margin-bottom: 1.25rem;
 }
 
@@ -452,11 +435,11 @@ a.pill-light:hover {
   font-weight: 600;
   text-decoration: none;
   padding-bottom: 0.15rem;
-  border-bottom: 2px solid var(--orange);
+  border-bottom: 2px solid var(--accent);
 }
 
 .project-link:hover {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 /* STARS: dark card */
@@ -491,7 +474,7 @@ a.pill-light:hover {
 }
 
 .stats dt span {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 .stats dd {
@@ -655,7 +638,7 @@ a.pill-light:hover {
 .more-link a {
   font-weight: 600;
   text-decoration: none;
-  border-bottom: 2px solid var(--orange);
+  border-bottom: 2px solid var(--accent);
 }
 
 /* Timeline */
@@ -735,7 +718,7 @@ a.pill-light:hover {
   filter: brightness(1.08);
 }
 
-.bar-pm { background: var(--orange); }
+.bar-pm { background: var(--accent); }
 .bar-po { background: var(--cream); }
 .bar-dev { background: var(--cream-2); }
 .bar-ra { background: var(--sage); }
@@ -749,7 +732,7 @@ a.pill-light:hover {
 .bar-now span {
   position: absolute;
   left: calc(100% + 0.5rem);
-  color: var(--orange);
+  color: var(--accent);
 }
 
 .bar-school {
@@ -778,7 +761,7 @@ a.pill-light:hover {
   top: 0;
   bottom: 0;
   width: 0;
-  border-left: 1.5px solid var(--orange);
+  border-left: 1.5px solid var(--accent);
 }
 
 .gantt-today span {
@@ -789,7 +772,7 @@ a.pill-light:hover {
   font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  background: var(--orange);
+  background: var(--accent);
   color: var(--card);
   padding: 0.1rem 0.4rem;
   border-radius: 999px;
@@ -867,7 +850,7 @@ a.pill-light:hover {
 }
 
 .role li::marker {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 .schools {
@@ -892,8 +875,8 @@ a.pill-light:hover {
   font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--orange);
-  border: 1.5px solid var(--orange);
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   margin-bottom: 0.75rem;
@@ -943,7 +926,7 @@ a.pill-light:hover {
 }
 
 .roadmap-next {
-  background: var(--orange);
+  background: var(--accent);
   color: var(--card);
 }
 
@@ -1052,7 +1035,7 @@ a.pill-light:hover {
 }
 
 .tool:hover .tool-mark {
-  background: var(--orange);
+  background: var(--accent);
 }
 
 .tool-name {
@@ -1087,8 +1070,8 @@ a.pill-light:hover {
 }
 
 .label-tape:hover {
-  background: var(--orange);
-  border-color: var(--orange);
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 /* Hobbies */
@@ -1155,7 +1138,7 @@ a.pill-light:hover {
   text-transform: none;
   letter-spacing: 0;
   text-decoration: none;
-  border-bottom: 2px solid var(--orange);
+  border-bottom: 2px solid var(--accent);
 }
 
 .travel-tabs {
@@ -1250,7 +1233,7 @@ a.pill-light:hover {
 .spine-rust { background: var(--cream-2); color: var(--ink); }
 .spine-teak { background: var(--muted-dark); color: var(--ink); }
 .spine-sage { background: var(--sage); color: var(--ink); }
-.spine-fav { background: var(--orange); color: var(--card); }
+.spine-fav { background: var(--accent); color: var(--card); }
 
 .shelf-board {
   height: 10px;
@@ -1292,7 +1275,7 @@ a.pill-light:hover {
 }
 
 .book-fav {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 /* Travel */
@@ -1338,7 +1321,7 @@ a.pill-light:hover {
 }
 
 .land.is-visited {
-  fill: var(--sage);
+  fill: var(--accent-light);
 }
 
 .land.is-visited:hover {
@@ -1346,7 +1329,7 @@ a.pill-light:hover {
 }
 
 .dot {
-  fill: var(--orange);
+  fill: var(--ink);
   stroke: var(--card);
   stroke-width: 1.2;
   cursor: pointer;
@@ -1355,13 +1338,13 @@ a.pill-light:hover {
 
 .dot:hover,
 .dot:focus {
-  fill: var(--ink);
+  fill: var(--accent);
   outline: none;
 }
 
 .dot-home {
   fill: none;
-  stroke: var(--ink);
+  stroke: var(--accent);
   stroke-width: 1.5;
   pointer-events: none;
 }
@@ -1428,12 +1411,12 @@ a.pill-light:hover {
   font-size: clamp(1.2rem, 3.2vw, 1.8rem);
   letter-spacing: -0.03em;
   text-decoration: none;
-  border-bottom: 2px solid var(--orange);
+  border-bottom: 2px solid var(--accent);
   overflow-wrap: anywhere;
 }
 
 .contact-email:hover {
-  color: var(--orange);
+  color: var(--accent);
 }
 
 .contact-links {
@@ -1442,23 +1425,41 @@ a.pill-light:hover {
 }
 
 .footer {
+  background: var(--char);
+  color: var(--muted-dark);
+  border-top: 1px solid var(--line-dark);
+  overflow: hidden;
+}
+
+.footer-meta {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.5rem;
-  padding: 1.25rem 2rem;
-  background: var(--char);
-  color: var(--muted-dark);
-  border-top: 1px solid var(--line-dark);
+  padding: 1.25rem 2rem 0;
   font-family: var(--mono);
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
 
+/* Oversized name bleeding off the bottom of the page */
+.wordmark {
+  font-family: var(--serif);
+  font-size: 16.5vw;
+  line-height: 0.75;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  text-align: center;
+  color: var(--char-2);
+  margin-bottom: -0.12em;
+  padding-top: 0.15em;
+  user-select: none;
+}
+
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--orange);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -1470,6 +1471,67 @@ button:focus-visible {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Display type: thin serif for headlines and big numbers */
+.statement-text,
+.band,
+.about-giant,
+.about-hello,
+.project h3,
+.stats dt,
+.pullquote,
+.roadmap-big,
+.role h4,
+.school h4,
+.hobby-head h3,
+.travel-intro h3,
+.travel-stats dt,
+.book-title,
+.contact h2,
+.contact-email {
+  font-family: var(--serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  font-variant-numeric: lining-nums;
+}
+
+.band,
+.about-giant {
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  letter-spacing: 0;
+}
+
+.statement-text {
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+
+.project h3 {
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  font-weight: 400;
+}
+
+.stats dt {
+  font-weight: 400;
+}
+
+.role h4,
+.school h4 {
+  font-size: 1.75rem;
+}
+
+.contact h2 {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.contact-email {
+  font-style: italic;
+  font-size: clamp(1.4rem, 3.6vw, 2.1rem);
 }
 
 /* Responsive */
@@ -1496,12 +1558,19 @@ button:focus-visible {
   }
 
   .hero {
-    grid-template-columns: 1fr;
-    padding: 3rem 1rem;
+    padding: 3rem 1rem 1rem;
   }
 
-  .hero-photo {
-    min-height: 260px;
+  .hero-top {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-photo img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .footer-meta {
+    padding: 1rem 1rem 0;
   }
 
   .statement,

@@ -26,12 +26,14 @@ function App() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-copy">
+        <div className="hero-top">
           <h1 className="hero-name">rebecca<br />hendsey</h1>
-          <p className="hero-sub">
-            Engineer turned project manager in New York, moving into product management &amp; product operations.
-          </p>
-          <a href="#work" className="btn btn-light">See my work <span className="btn-dot" aria-hidden="true">↓</span></a>
+          <div className="hero-aside">
+            <p className="hero-sub">
+              Engineer turned project manager in New York, moving into product management &amp; product operations.
+            </p>
+            <a href="#work" className="btn btn-light">See my work <span className="btn-dot" aria-hidden="true">↓</span></a>
+          </div>
         </div>
         <figure className="hero-photo">
           <img src="/hero-image.jpeg" alt="Foggy Manhattan skyline over rooftops" />
@@ -250,8 +252,11 @@ function App() {
       </section>
 
       <footer className="footer">
-        <span>© 2026 Rebecca Hendsey</span>
-        <span>Made with &lt;3</span>
+        <div className="footer-meta">
+          <span>© 2026 Rebecca Hendsey</span>
+          <span>Made with &lt;3</span>
+        </div>
+        <p className="wordmark" aria-hidden="true">rebecca hendsey</p>
       </footer>
     </>
   )
