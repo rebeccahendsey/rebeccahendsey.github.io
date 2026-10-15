@@ -59,7 +59,6 @@ function App() {
             src="/photos/iceland-horses.jpg"
             alt="Icelandic horses grazing in a green field below a mountain"
           />
-          <figcaption>Iceland</figcaption>
         </figure>
       </section>
 

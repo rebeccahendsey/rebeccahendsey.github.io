@@ -311,8 +311,6 @@ a.pill:hover {
 .band {
   grid-column: 1;
   align-self: start;
-  position: sticky;
-  top: 72px;
   padding: 2.5rem 2rem 2rem 0;
   border-top: 1px solid var(--line);
   margin-top: -1px;
@@ -532,6 +530,7 @@ a.pill:hover {
 /* Pinterest Go */
 .phones {
   list-style: none;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   padding: 2.5rem 1rem 2rem;
@@ -663,8 +662,8 @@ a.pill:hover {
 
 .gantt {
   position: relative;
-  min-width: 720px;
-  padding: 3rem 1.5rem 1.5rem;
+  min-width: 800px;
+  padding: 3rem 1.5rem 2.25rem;
 }
 
 .gantt-years {
@@ -742,9 +741,9 @@ a.pill:hover {
   left: calc(100% + 0.45rem);
   top: 50%;
   transform: translateY(-50%);
-  width: 7.5rem;
+  width: 6.2rem;
   white-space: normal;
-  font-size: 0.68rem;
+  font-size: 0.64rem;
   line-height: 1.15;
   color: var(--ink);
 }
@@ -766,7 +765,7 @@ a.pill:hover {
 
 .gantt-overlay {
   position: absolute;
-  inset: 2.4rem 1.5rem 1rem;
+  inset: 2.4rem 1.5rem 1.6rem;
   pointer-events: none;
 }
 
@@ -780,7 +779,7 @@ a.pill:hover {
 
 .gantt-today span {
   position: absolute;
-  top: -1.3rem;
+  bottom: -1.35rem;
   left: -1.3rem;
   font-family: var(--mono);
   font-size: 0.58rem;
@@ -1326,7 +1325,7 @@ a.pill:hover {
   font-family: var(--display);
   font-weight: 400;
   font-size: clamp(2.8rem, 7vw, 6rem);
-  line-height: 0.95;
+  line-height: 1.05;
   letter-spacing: -0.055em;
 }
 
@@ -1382,7 +1381,7 @@ a.pill:hover {
 .wordmark {
   font-family: var(--display);
   font-weight: 300;
-  font-size: min(13.5vw, 178px);
+  font-size: min(12vw, 156px);
   line-height: 0.8;
   letter-spacing: -0.06em;
   white-space: nowrap;
