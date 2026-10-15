@@ -205,8 +205,8 @@ function Journey() {
             </a>
             <a
               href="#school-columbia"
-              className="gantt-bar bar-school bar-dashed"
-              style={span(NOW_KEY, "2027-12")}
+              className="gantt-bar bar-school bar-fade"
+              style={span("2026-01", "2027-12")}
             >
               Columbia · M.S. Data Science
             </a>

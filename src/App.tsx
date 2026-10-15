@@ -56,11 +56,23 @@ function App() {
         </div>
         <figure className="hero-photo">
           <img
-            src="/hero-image.jpeg"
-            alt="Foggy Manhattan skyline over rooftops"
+            src="/photos/iceland-horses.jpg"
+            alt="Icelandic horses grazing in a green field below a mountain"
           />
-          <figcaption>New York, NY</figcaption>
+          <figcaption>Iceland</figcaption>
         </figure>
+      </section>
+
+      <section className="where" aria-label="Where I've worked and studied">
+        <p className="where-label">Where I’ve been</p>
+        <ul>
+          <li>IBM Client Engineering</li>
+          <li>IBM Research</li>
+          <li>IBM Expert Labs</li>
+          <li>Columbia University</li>
+          <li>Fordham University</li>
+          <li>Girls Who Code</li>
+        </ul>
       </section>
 
       <section id="about" className="about">
@@ -102,7 +114,8 @@ function App() {
       </section>
 
       <div className="band" id="work">
-        <span>Things I've shaped</span>
+        <h2>Things I've shaped</h2>
+        <p>Products I’ve owned, and concepts I’ve taken from idea to prototype.</p>
       </div>
 
       <section className="work">
@@ -256,7 +269,8 @@ function App() {
       </section>
 
       <div className="band">
-        <span>Things I've built</span>
+        <h2>Things I've built</h2>
+        <p>Tools I designed and coded at IBM, end to end.</p>
       </div>
 
       <section className="work">
@@ -367,19 +381,22 @@ function App() {
       </section>
 
       <div className="band" id="journey">
-        <span>Timeline</span>
+        <h2>Timeline</h2>
+        <p>Work and school, side by side.</p>
       </div>
 
       <Journey />
 
       <div className="band" id="toolkit">
-        <span>Toolkit</span>
+        <h2>Toolkit</h2>
+        <p>Languages, tools, and ways of working.</p>
       </div>
 
       <Toolbox />
 
       <div className="band" id="hobbies">
-        <span>Off the clock</span>
+        <h2>Off the clock</h2>
+        <p>What I’m reading and where I’ve been.</p>
       </div>
 
       <section className="hobbies">
