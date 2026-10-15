@@ -102,17 +102,31 @@ body {
 .hero-content {
   position: relative;
   z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 8px;
 }
 
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1.25rem;
   margin-bottom: 2rem;
-  opacity: 1;
+  color: var(--text-color);
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 /* Buttons */
@@ -149,6 +163,17 @@ body {
   color: var(--white);
 }
 
+.btn-solid {
+  background-color: var(--primary-color);
+  color: var(--white);
+  border: 2px solid var(--primary-color);
+}
+
+.btn-solid:hover {
+  background-color: var(--white);
+  color: var(--primary-color);
+}
+
 /* About Section */
 .about {
   padding: 60px 20px;
@@ -169,6 +194,144 @@ body {
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
   text-align: center;
+}
+
+/* Product Highlights Section */
+.highlights {
+  padding: 60px 20px;
+}
+
+.highlights h2,
+.experience h2 {
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.highlight-card {
+  background-color: var(--white);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  border-top: 4px solid var(--primary-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.highlight-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.highlight-role {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--secondary-color);
+}
+
+.highlight-card h3 {
+  color: var(--primary-color);
+  font-size: 1.35rem;
+  margin: 0.25rem 0 1rem;
+}
+
+.highlight-card p {
+  color: #555;
+}
+
+.highlight-metrics {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.highlight-metrics li {
+  background-color: var(--light-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 999px;
+  padding: 0.2rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* Experience Section */
+.experience {
+  padding: 60px 20px;
+  background-color: var(--light-bg);
+}
+
+.experience .container {
+  max-width: 900px;
+}
+
+.experience .education-heading {
+  margin-top: 4rem;
+}
+
+.timeline {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 2rem;
+}
+
+.job {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+.job:last-child {
+  margin-bottom: 0;
+}
+
+.job::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 8px);
+  top: 0.4rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: var(--white);
+  border: 3px solid var(--primary-color);
+}
+
+.job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.job h3 {
+  color: var(--primary-color);
+  font-size: 1.25rem;
+}
+
+.job-company {
+  color: var(--secondary-color);
+}
+
+.job-dates {
+  color: #666;
+  white-space: nowrap;
+}
+
+.job ul {
+  padding-left: 1.2rem;
+  color: #555;
+}
+
+.job li {
+  margin-bottom: 0.4rem;
 }
 
 /* Projects Section */
@@ -331,6 +494,18 @@ footer p {
     font-size: 2rem;
   }
 
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline {
+    padding-left: 1.25rem;
+  }
+
+  .job::before {
+    left: calc(-1.25rem - 8px);
+  }
+
   .hero-content p {
     font-size: 1rem;
   }
@@ -344,6 +519,8 @@ footer p {
   }
 
   .about h2,
+  .highlights h2,
+  .experience h2,
   .projects h2,
   .skills h2,
   .contact h2 {
@@ -360,9 +537,16 @@ footer p {
     font-size: 1.2rem;
   }
 
-  .nav-menu {
+  .nav-container {
+    flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .nav-menu {
+    gap: 0.75rem;
     font-size: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .hero {
