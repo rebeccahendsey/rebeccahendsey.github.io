@@ -323,7 +323,7 @@ function App() {
             <dl className="stats stats-inline">
               <div>
                 <dt>4,010</dt>
-                <dd>researchers, 1H 2024</dd>
+                <dd>researcher reports, across 2 year-end cycles</dd>
               </div>
               <div>
                 <dt>1,104</dt>
