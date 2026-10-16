@@ -247,9 +247,16 @@ a.pill:hover {
   justify-items: start;
 }
 
+.hero-intro {
+  display: grid;
+  gap: 1.25rem;
+}
+
 .hero-sub {
-  max-width: 24rem;
+  max-width: 26rem;
   color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.45;
 }
 
 .hero-photo {
