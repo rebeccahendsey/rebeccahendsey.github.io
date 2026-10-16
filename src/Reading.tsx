@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import shelf from './data/books.json'
+import { useClientValue } from './useClientValue'
 
 interface Book {
   title: string
@@ -20,6 +21,11 @@ const YEARS = [...new Set(BOOKS.map((b) => b.year).filter((y): y is number => !!
 const SPINE_COLORS = ['spine-forest', 'spine-moss', 'spine-cream', 'spine-rust', 'spine-teak', 'spine-sage']
 
 // Stable pseudo-random number from a title, so each spine keeps its look between builds
+// Formatted in the viewer's time zone, so it is filled in after hydration
+const formatUpdated = () =>
+  UPDATED && new Date(UPDATED).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+const currentYear = () => new Date().getFullYear()
+
 function hash(s: string) {
   let h = 0
   for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0
@@ -30,7 +36,8 @@ function Reading() {
   const [year, setYear] = useState(YEARS[0])
   const [open, setOpen] = useState<Book | null>(null)
   const books = BOOKS.filter((b) => b.year === year)
-  const thisYear = new Date().getFullYear()
+  const thisYear = useClientValue(currentYear, null)
+  const updated = useClientValue(formatUpdated, null)
 
   return (
     <div className="reading">
@@ -102,7 +109,7 @@ function Reading() {
 
       <p className="hobby-source">
         <a href="https://www.goodreads.com/user/show/136096794" target="_blank" rel="noopener noreferrer">Check out my Goodreads →</a>
-        {UPDATED && <> · updated {new Date(UPDATED).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</>}
+        {updated && <> · updated {updated}</>}
       </p>
     </div>
   )
