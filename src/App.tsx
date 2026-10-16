@@ -40,11 +40,17 @@ function App() {
 
       <section className="hero" id="top">
         <div className="hero-top">
-          <h1 className="hero-name">
-            rebecca
-            <br />
-            hendsey
-          </h1>
+          <div className="hero-intro">
+            <h1 className="hero-name">
+              rebecca
+              <br />
+              hendsey
+            </h1>
+            <p className="hero-sub">
+              AI/software engineer moving into product, with 4+ years building
+              at IBM.
+            </p>
+          </div>
           <div className="hero-aside">
             <a href="#work" className="btn btn-light">
               Check out my work{" "}
