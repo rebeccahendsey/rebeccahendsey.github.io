@@ -30,11 +30,6 @@ function Travel() {
     <div className="travel">
       <div className="travel-intro">
         <h3>Places I’ve <em>been.</em></h3>
-        <dl className="travel-stats">
-          <div><dt>15</dt><dd>countries</dd></div>
-          <div><dt>17</dt><dd>states + D.C.</dd></div>
-          <div><dt>{map.world.dots.length}</dt><dd>pins</dd></div>
-        </dl>
       </div>
 
       <div className="travel-tabs" role="tablist" aria-label="Map view">
