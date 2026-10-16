@@ -96,7 +96,9 @@ function App() {
 
       <div className="band" id="work">
         <h2>Things I've shaped</h2>
-        <p>Products I’ve owned, and concepts I’ve taken from idea to prototype.</p>
+        <p>
+          Products I’ve owned, and concepts I’ve taken from idea to prototype.
+        </p>
       </div>
 
       <section className="work">
@@ -317,17 +319,18 @@ function App() {
             <p>
               A personalized “year in review” email for IBM researchers, pulling
               publications, patents, projects, GitHub contributions, and more
-              from a dozen sources into one, personalized page using Go
-              template.
+              from a dozen sources into one, personalized page using Python and
+              Go template. Generated for 4,010 researchers across IBM Research
+              and sent for multiple cycles.
             </p>
             <dl className="stats stats-inline">
               <div>
                 <dt>4,010</dt>
-                <dd>researcher reports, across 2 year-end cycles</dd>
+                <dd>researcher reports generated</dd>
               </div>
               <div>
                 <dt>1,104</dt>
-                <dd>emails sent</dd>
+                <dd>emails sent (to eligible researchers)</dd>
               </div>
             </dl>
             <ul className="pills">
