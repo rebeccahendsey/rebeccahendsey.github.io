@@ -114,22 +114,6 @@ const SCHOOL: School[] = [
   },
 ];
 
-// Vertical chart: newest at the top, Jul 2019 at the bottom
-const CHART_START = "2019-07";
-const CHART_END = "2028-01";
-const NOW = new Date();
-const NOW_KEY = `${NOW.getFullYear()}-${String(NOW.getMonth() + 1).padStart(2, "0")}`;
-
-const months = (ym: string) => {
-  const [y, m] = ym.split("-").map(Number);
-  return y * 12 + (m - 1);
-};
-const TOTAL = months(CHART_END) - months(CHART_START);
-
-// Distance from the top of the chart, as a percentage
-const pos = (ym: string) =>
-  Math.min(100, Math.max(0, ((months(CHART_END) - months(ym)) / TOTAL) * 100));
-
 const label = (ym: string | null) => {
   if (!ym) return "Present";
   const [y, m] = ym.split("-").map(Number);
@@ -139,13 +123,6 @@ const label = (ym: string | null) => {
   });
 };
 
-const span = (start: string, end: string | null) => ({
-  top: `${pos(end ?? NOW_KEY)}%`,
-  height: `${pos(start) - pos(end ?? NOW_KEY)}%`,
-});
-
-// Lanes: IBM roles follow Girls Who Code in one lane; the overlapping research role gets its own
-const WORK_LANES = [["gwc", "dev", "po", "pm"], ["ra"]];
 const SHORT: Record<string, string> = {
   pm: "Project Manager, IBM Expert Labs",
   po: "AI Engineer & Product Owner, IBM CE",
@@ -154,83 +131,82 @@ const SHORT: Record<string, string> = {
   gwc: "Co-President, Girls Who Code",
 };
 
-function Journey() {
-  const years = Array.from({ length: 8 }, (_, i) => 2020 + i);
+// One stop per role or degree, newest first. School sits left of the line, work right.
+interface Stop {
+  id: string;
+  kind: "work" | "school";
+  sortKey: string;
+  title: string;
+  sub: string;
+  dates: string;
+  href: string;
+  current: boolean;
+}
 
+const STOPS = ([
+  ...WORK.map((r): Stop => {
+    const [title, ...org] = SHORT[r.id].split(", ");
+    return {
+      id: r.id,
+      kind: "work",
+      sortKey: r.start,
+      title,
+      sub: org.join(", "),
+      dates: `${label(r.start)} – ${label(r.end)}`,
+      href: `#role-${r.id}`,
+      current: !r.end,
+    };
+  }),
+  {
+    id: "columbia",
+    kind: "school",
+    sortKey: "2026-01",
+    title: "Columbia University",
+    sub: "M.S. Data Science",
+    dates: "In progress · expected Dec 2027",
+    href: "#school-columbia",
+    current: true,
+  },
+  {
+    id: "fordham",
+    kind: "school",
+    sortKey: "2022-05",
+    title: "Fordham University",
+    sub: "B.S. Computer Science",
+    dates: "Graduated May 2022",
+    href: "#school-fordham",
+    current: false,
+  },
+] as Stop[]).sort((a, b) => b.sortKey.localeCompare(a.sortKey));
+
+function Journey() {
   return (
     <section className="journey">
-      <div
-        className="vchart"
-        role="img"
-        aria-label="Chart of work and education from 2019 to 2027"
-      >
-        <div className="vchart-head" aria-hidden="true">
+      <ol className="tl" aria-label="Work and school timeline, newest first">
+        <li className="tl-head" aria-hidden="true">
+          <span>School</span>
           <span />
-          <span className="vchart-lane-label">Work</span>
-          <span />
-          <span className="vchart-lane-label">School</span>
-        </div>
-
-        <div className="vchart-plot">
-          <div className="vchart-years" aria-hidden="true">
-            {years.map((y) => (
-              <span key={y} style={{ top: `${pos(`${y}-01`)}%` }}>
-                {y}
+          <span>Work</span>
+        </li>
+        {STOPS.map((s) => (
+          <li
+            key={s.id}
+            className={`tl-stop tl-${s.kind}${s.current ? " is-current" : ""}`}
+          >
+            <span className="tl-marker">
+              {s.current ? "Now" : s.sortKey.slice(0, 4)}
+            </span>
+            <a className="tl-card" href={s.href}>
+              <span className="tl-kind">
+                {s.kind === "work" ? "Work" : "School"}
               </span>
-            ))}
-            <div className="vchart-today" style={{ top: `${pos(NOW_KEY)}%` }}>
-              <span>Today</span>
-            </div>
-          </div>
-
-          <span className="vchart-axis" />
-          {WORK_LANES.map((lane, i) => (
-            <div className="vchart-lane" key={i}>
-              {lane.map((id) => {
-                const r = WORK.find((w) => w.id === id)!;
-                return (
-                  <a
-                    key={id}
-                    href={`#role-${id}`}
-                    className={`vbar bar-${id}${r.end ? "" : " bar-now"}`}
-                    style={span(r.start, r.end)}
-                  >
-                    <span className="vbar-text">
-                      <strong>{SHORT[id]}</strong>
-                      <small>
-                        {label(r.start)} – {label(r.end)}
-                      </small>
-                    </span>
-                  </a>
-                );
-              })}
-            </div>
-          ))}
-
-          <div className="vchart-lane">
-            <a
-              href="#school-columbia"
-              className="vbar bar-school bar-fade"
-              style={span("2026-01", "2027-12")}
-            >
-              <span className="vbar-text">
-                <strong>Columbia · M.S. Data Science</strong>
-                <small>Expected Dec 2027</small>
-              </span>
+              <span className="tl-dates">{s.dates}</span>
+              <strong>{s.title}</strong>
+              <span className="tl-sub">{s.sub}</span>
             </a>
-            <a
-              href="#school-fordham"
-              className="vbar bar-school bar-fade"
-              style={span(CHART_START, "2022-05")}
-            >
-              <span className="vbar-text">
-                <strong>Fordham · B.S. Computer Science</strong>
-                <small>May 2022</small>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
+          </li>
+        ))}
+      </ol>
 
       <div className="journey-cols">
         <div>

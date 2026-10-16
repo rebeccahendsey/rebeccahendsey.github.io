@@ -629,148 +629,116 @@ a.pill:hover {
   border-bottom: 1px solid var(--ink);
 }
 
-/* Timeline: vertical chart, newest at the top, one column per lane */
-.vchart {
+/* Timeline: one center line, newest at the top, school left and work right */
+.tl {
+  position: relative;
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+/* The line itself */
+.tl::before {
+  content: "";
+  position: absolute;
+  top: 2.2rem;
+  bottom: 0;
+  left: 50%;
+  border-left: 1px solid var(--ink);
+}
+
+.tl-head,
+.tl-stop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr);
+  align-items: center;
+}
+
+.tl-head {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  padding-bottom: 0.5rem;
+}
+
+.tl-head span:first-child {
+  text-align: right;
+}
+
+.tl-marker {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  position: relative;
+  z-index: 1;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
+.is-current .tl-marker {
+  background: var(--ink);
+  color: var(--paper);
+  text-transform: uppercase;
+}
+
+.tl-card {
+  grid-row: 1;
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem 1.15rem;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.25rem 1.25rem 1.5rem;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.vchart-head,
-.vchart-plot {
-  display: grid;
-  grid-template-columns: 3.25rem repeat(3, minmax(0, 1fr));
-  column-gap: 0.5rem;
+.tl-card:hover {
+  border-color: var(--ink);
+  transform: translateY(-2px);
 }
 
-.vchart-head {
-  padding-bottom: 0.75rem;
+.tl-work .tl-card {
+  grid-column: 3;
 }
 
-.vchart-lane-label {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
+.tl-school .tl-card {
+  grid-column: 1;
+  text-align: right;
+  background: var(--panel);
 }
 
-.vchart-plot {
-  position: relative;
-  height: 680px;
+.tl-kind {
+  display: none;
 }
 
-/* Year lines run across every lane; their labels sit in the first column */
-.vchart-years {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.vchart-years > span {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 1px solid var(--line);
+.tl-dates {
   font-family: var(--mono);
   font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
-  padding-top: 0.2rem;
 }
 
-.vchart-today {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-top: 1px dashed var(--ink);
-  z-index: 2;
-}
-
-.vchart-today span {
-  position: absolute;
-  left: 0;
-  top: 0.2rem;
-  font-family: var(--mono);
-  font-size: 0.56rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.1rem 0.3rem;
-  border-radius: 2px;
-}
-
-.vchart-lane {
-  position: relative;
-}
-
-.vbar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  display: flex;
-  align-items: flex-start;
-  padding: 0.55rem 0.6rem;
-  border-radius: 4px;
-  text-decoration: none;
-  color: var(--paper);
-  background: var(--ink);
-  overflow: hidden;
-  transition: opacity 0.2s ease;
-}
-
-.vbar:hover {
-  opacity: 0.85;
-}
-
-.vbar-text {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.vbar strong {
-  font-size: 0.74rem;
-  font-weight: 600;
+.tl-card strong {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.15rem;
   line-height: 1.2;
+  letter-spacing: -0.03em;
 }
 
-.vbar small {
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  opacity: 0.75;
-}
-
-.bar-po { background: var(--ink-2); }
-.bar-dev { background: #4a4844; }
-.bar-ra,
-.bar-gwc,
-.bar-school {
-  background: var(--panel);
-  color: var(--ink);
-}
-
-/* Started before the chart begins: fade out toward the bottom */
-.bar-fade {
-  background: linear-gradient(180deg, var(--panel) 70%, transparent);
-}
-
-/* The current role is only weeks long, so its label sits in the empty lane beside it */
-.bar-now {
-  overflow: visible;
-  padding: 0;
-}
-
-.bar-now .vbar-text {
-  position: absolute;
-  left: calc(100% + 0.5rem);
-  top: 0;
-  width: 100%;
-  color: var(--ink);
+.tl-sub {
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .journey-cols {
@@ -1439,31 +1407,41 @@ button:focus-visible {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .vchart {
-    padding: 1rem 0.75rem 1.25rem;
+  .tl::before {
+    top: 0.5rem;
+    left: 1.6rem;
   }
 
-  .vchart-head,
-  .vchart-plot {
-    grid-template-columns: 2.4rem repeat(3, minmax(0, 1fr));
-    column-gap: 0.3rem;
+  .tl-head {
+    display: none;
   }
 
-  .vchart-plot {
-    height: 900px;
+  .tl-stop {
+    grid-template-columns: 3.2rem minmax(0, 1fr);
+    align-items: start;
   }
 
-  .vbar {
-    padding: 0.45rem 0.4rem;
+  .tl-marker {
+    grid-column: 1;
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    padding: 0.15rem 0.4rem;
   }
 
-  .vbar strong {
-    font-size: 0.68rem;
+  .tl-work .tl-card,
+  .tl-school .tl-card {
+    grid-column: 2;
+    text-align: left;
   }
 
-  .vbar small {
-    font-size: 0.54rem;
+  .tl-kind {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
+
 
   .project {
     grid-template-columns: minmax(0, 1fr);
