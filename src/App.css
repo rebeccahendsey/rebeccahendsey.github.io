@@ -1142,37 +1142,6 @@ a.pill:hover {
 }
 
 /* Travel */
-.travel-stats {
-  display: flex;
-}
-
-.travel-stats div {
-  padding: 0 1.25rem;
-  border-left: 1px solid var(--line);
-}
-
-.travel-stats div:first-child {
-  border-left: none;
-  padding-left: 0;
-}
-
-.travel-stats dt {
-  font-family: var(--display);
-  font-weight: 300;
-  font-size: 2rem;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-}
-
-.travel-stats dd {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-}
-
 .map {
   --map-pad: 0.75rem;
   position: relative;
