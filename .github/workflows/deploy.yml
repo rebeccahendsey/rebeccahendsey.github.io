@@ -5,6 +5,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+  schedule:
+    # Rebuild daily so the bookshelf picks up new Goodreads reads
+    - cron: '17 11 * * *'
 
 jobs:
   build:
@@ -17,11 +20,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Pull latest books from Goodreads
+        run: node scripts/fetch-goodreads.mjs
 
       - name: Build
         run: npm run build
